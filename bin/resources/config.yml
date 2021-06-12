@@ -1,0 +1,10 @@
+hologram:
+  lines:
+    - "&eCrate %name%"
+    - "&e&lCLICK DERECHO"
+key:
+  name: "&eLlave %name%"
+  lore:
+    - "&7Intercambia esta llave en el spawn!"
+chest:
+  name: "&eCrate %name%"
