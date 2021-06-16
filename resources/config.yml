@@ -1,10 +1,15 @@
+# Display information for crate chests holograms
 hologram:
   lines:
     - "&eCrate %name%"
     - "&e&lCLICK DERECHO"
+
+# Display information for key items
 key:
-  name: "&eLlave %name%"
+  name: "&eKey %name%"
   lore:
-    - "&7Intercambia esta llave en el spawn!"
+    - "&7Exchange this key on the spawn!"
+
+# Display information for crate inventories
 chest:
   name: "&eCrate %name%"
