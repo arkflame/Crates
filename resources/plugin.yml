@@ -1,6 +1,6 @@
 name: Crates
 version: 0.0.1
-authors: [Sammwy, LinsaFTW]
+authors: [LinsaFTW]
 main: dev._2lstudios.crates.Crates
 depend: [HolographicDisplays]
 load: POSTWORLD
