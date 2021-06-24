@@ -21,4 +21,8 @@ class ListCommand implements CratesCommand {
       sender.sendMessage(ChatColor.GREEN + "Crates: " + ChatColor.AQUA + Arrays.toString((Object[])crates));
     } 
   }
+
+  public String getDescription() {
+    return "Lists available Crates";
+  }
 }

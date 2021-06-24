@@ -36,4 +36,8 @@ class RemoveLocationCommand implements CratesCommand {
       } 
     } 
   }
+
+  public String getDescription() {
+    return "Removes the given Crate location";
+  }
 }

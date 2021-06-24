@@ -35,4 +35,8 @@ class CheckCommand implements CratesCommand {
       } 
     } 
   }
+
+  public String getDescription() {
+    return "Checks your pending keys";
+  }
 }

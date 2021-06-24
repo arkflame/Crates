@@ -5,6 +5,8 @@ import dev._2lstudios.crates.interfaces.CratesCommand;
 import dev._2lstudios.crates.player.CratesPlayerManager;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.command.Command;
@@ -14,7 +16,7 @@ import org.bukkit.command.CommandSender;
 public class CratesCommandExecutor implements CommandExecutor {
   private final Map<String, CratesCommand> cratesCommands;
   
-  public CratesCommandExecutor(CrateManager crateManager, CratesPlayerManager cratesPlayerManager, Server server) {
+  public CratesCommandExecutor(final CrateManager crateManager, final CratesPlayerManager cratesPlayerManager, final Server server) {
     this.cratesCommands = new HashMap<>();
     this.cratesCommands.put("addlocation", new AddLocationCommand(crateManager));
     this.cratesCommands.put("check", new CheckCommand(cratesPlayerManager));
@@ -29,15 +31,23 @@ public class CratesCommandExecutor implements CommandExecutor {
     this.cratesCommands.put("removelocation", new RemoveLocationCommand(crateManager));
   }
   
-  public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+  public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
     if (args.length > 0) {
-      String subCommand = args[0].toLowerCase();
-      if (this.cratesCommands.containsKey(subCommand))
-        ((CratesCommand)this.cratesCommands.get(subCommand)).execute(sender, label, args); 
+      final String subCommand = args[0].toLowerCase();
+
+      if (this.cratesCommands.containsKey(subCommand)) {
+        this.cratesCommands.get(subCommand).execute(sender, label, args); 
+      }
     } else {
-      StringBuilder message = new StringBuilder("&aCrates &b0.0.1&a by &b2LS&r\n");
-      for (String cratesCommand : this.cratesCommands.keySet())
-        message.append("&e /crates " + cratesCommand + "&7 > &bCrates Command!\n"); 
+      final StringBuilder message = new StringBuilder("&aCrates &b0.0.1&a by &b2LS&r\n");
+
+      for (final Entry<String, CratesCommand> entry : this.cratesCommands.entrySet()) {
+        final String key = entry.getKey();
+        final CratesCommand cratesCommand = entry.getValue();
+
+        message.append("&e /crates " + key + "&7 > &b" + cratesCommand.getDescription() + "!\n"); 
+      }
+
       sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message.toString()));
     } 
     return true;

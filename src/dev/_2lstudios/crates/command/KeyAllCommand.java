@@ -50,4 +50,8 @@ class KeyAllCommand implements CratesCommand {
       } 
     } 
   }
+
+  public String getDescription() {
+    return "Gives keys to all players";
+  }
 }

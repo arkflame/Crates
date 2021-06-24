@@ -32,4 +32,8 @@ class ContentsCommand implements CratesCommand {
       } 
     } 
   }
+
+  public String getDescription() {
+    return "Edits contents of crates";
+  }
 }

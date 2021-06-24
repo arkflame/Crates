@@ -31,4 +31,8 @@ class ClaimCommand implements CratesCommand {
       } 
     } 
   }
+
+  public String getDescription() {
+    return "Claim your pending keys";
+  }
 }

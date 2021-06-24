@@ -36,4 +36,8 @@ class DisplaynameCommand implements CratesCommand {
       } 
     } 
   }
+
+  public String getDescription() {
+    return "Changes displayname of Crates";
+  }
 }

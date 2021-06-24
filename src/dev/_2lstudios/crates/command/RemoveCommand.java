@@ -23,4 +23,8 @@ class RemoveCommand implements CratesCommand {
       sender.sendMessage(ChatColor.GREEN + "Eliminaste el crate " + ChatColor.AQUA + crateName + ChatColor.GREEN + " correctamente!");
     } 
   }
+
+  public String getDescription() {
+    return "Removes the given Crate";
+  }
 }

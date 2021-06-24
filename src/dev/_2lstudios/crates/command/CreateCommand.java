@@ -23,4 +23,8 @@ class CreateCommand implements CratesCommand {
       sender.sendMessage(ChatColor.GREEN + "Creaste el crate " + ChatColor.AQUA + crateName + ChatColor.GREEN + " correctamente!");
     } 
   }
+
+  public String getDescription() {
+    return "Creates a new Crate";
+  }
 }

@@ -4,4 +4,6 @@ import org.bukkit.command.CommandSender;
 
 public interface CratesCommand {
   void execute(CommandSender paramCommandSender, String paramString, String[] paramArrayOfString);
+
+  String getDescription();
 }

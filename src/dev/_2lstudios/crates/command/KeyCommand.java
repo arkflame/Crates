@@ -49,4 +49,8 @@ class KeyCommand implements CratesCommand {
       } 
     } 
   }
+
+  public String getDescription() {
+    return "Gives keys to a player";
+  }
 }
