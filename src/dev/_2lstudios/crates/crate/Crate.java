@@ -88,21 +88,6 @@ public class Crate {
     this.displayName = displayName;
   }
 
-  public void addLocation(final Location location) {
-    if (location != null)
-      this.locations.add(location);
-  }
-
-  public void removeLocation(final Location location) {
-    final Iterator<Location> locationIterator = this.locations.iterator();
-    final Block block = location.getBlock();
-    while (locationIterator.hasNext()) {
-      final Location location1 = locationIterator.next();
-      if (location1 == null || block == location1.getBlock())
-        locationIterator.remove();
-    }
-  }
-
   public boolean checkLocation(final Location location) {
     final Block block = location.getBlock();
     for (final Location location1 : this.locations) {
@@ -176,15 +161,20 @@ public class Crate {
     }
   }
 
+  private void spawnHologram(final Location location) {
+    final Location clonedLocation = location.clone().add(0, 1.5f, 0);
+    final Hologram hologram = HologramsAPI.createHologram(plugin, clonedLocation);
+
+    appendLines(hologram);
+
+    this.holograms.add(hologram);
+  }
+
   public void spawnHolograms() {
     despawnHolograms();
+
     for (final Location location : locations) {
-      final Location clonedLocation = location.clone().add(0, 1.5f, 0);
-      final Hologram hologram = HologramsAPI.createHologram(plugin, clonedLocation);
-
-      appendLines(hologram);
-
-      this.holograms.add(hologram);
+      spawnHologram(location);
     }
   }
 
@@ -194,5 +184,43 @@ public class Crate {
     }
 
     holograms.clear();
+  }
+
+  public void despawnHologram(final Location location) {
+    final Iterator<Hologram> iterator = holograms.iterator();
+    final Block block = location.getBlock();
+
+    while (iterator.hasNext()) {
+      final Hologram hologram = iterator.next();
+      final Location location1 = hologram.getLocation();
+
+      if (location1 == null || block == location1.getBlock()) {
+        hologram.delete();
+        iterator.remove();
+      }
+    }
+  }
+
+  public void addLocation(final Location location) {
+    if (location != null) {
+      this.locations.add(location);
+
+      spawnHologram(location);
+    }
+  }
+
+  public void removeLocation(final Location location) {
+    final Iterator<Location> locationIterator = this.locations.iterator();
+    final Block block = location.getBlock();
+
+    while (locationIterator.hasNext()) {
+      final Location location1 = locationIterator.next();
+
+      if (location1 == null || block == location1.getBlock()) {
+        locationIterator.remove();
+      }
+    }
+
+    despawnHologram(location);
   }
 }
