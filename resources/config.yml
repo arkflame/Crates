@@ -13,3 +13,18 @@ key:
 # Display information for crate inventories
 inventory:
   title: "&eCrate %name%"
+
+command_usage: "&c/%label% %cmd% %args%"
+
+no_console: "&cYou can't use this command from the console!"
+no_permission: "&cNot enough permissions!"
+no_chest: "&cYou aren't aiming at any chests!"
+no_keys: "&cYou have no keys pending to claim!"
+
+add_location:
+  success: "&aYou added a location for the crate &b%name%&a!"
+  description: "Adds the given Crate location!"
+
+check:
+  success: "&aYou have &b%amount%&a keys to claim!"
+  description: "Checks your pending keys!"
