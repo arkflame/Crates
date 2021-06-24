@@ -18,7 +18,7 @@ command_usage: "&c/%label% %cmd% %args%"
 
 no_console: "&cYou can't use this command from the console!"
 no_permission: "&cNot enough permissions!"
-no_chest: "&cYou aren't aiming at any chests!"
+no_block: "&cYou aren't aiming at any block!"
 no_keys: "&cYou have no keys pending to claim!"
 
 add_location:

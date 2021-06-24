@@ -19,7 +19,7 @@ public class CratesConfig {
 
     private final String noConsole;
     private final String noPermission;
-    private final String noChest;
+    private final String noBlock;
     private final String noKeys;
 
     private final String addLocationSuccess;
@@ -42,7 +42,7 @@ public class CratesConfig {
 
         noConsole = configWrapper.getOrDefault("no_console", "");
         noPermission = configWrapper.getOrDefault("no_permission", "");
-        noChest = configWrapper.getOrDefault("no_chest", "");
+        noBlock = configWrapper.getOrDefault("no_block", "");
         noKeys = configWrapper.getOrDefault("no_keys", "");
 
         addLocationSuccess = configWrapper.getOrDefault("add_location.success", "");
