@@ -11,11 +11,11 @@ import org.bukkit.util.Vector;
 
 class AddLocationCommand implements CratesCommand {
   private final CrateManager crateManager;
-  
+
   AddLocationCommand(final CrateManager crateManager) {
     this.crateManager = crateManager;
   }
-  
+
   public void execute(final CommandSender sender, final String label, final String[] args) {
     if (!(sender instanceof Player)) {
       sender.sendMessage(ChatColor.RED + "No puedes utilizar este comando desde la consola!");
@@ -24,7 +24,7 @@ class AddLocationCommand implements CratesCommand {
     } else if (args.length < 2) {
       sender.sendMessage(ChatColor.RED + "/crate addlocation <name>");
     } else {
-      final Block block = ((Player)sender).getTargetBlock(null, 10);
+      final Block block = ((Player) sender).getTargetBlock(null, 10);
       if (block == null) {
         sender.sendMessage(ChatColor.RED + "No estas apuntando a ningun cofre!");
       } else {
@@ -32,9 +32,10 @@ class AddLocationCommand implements CratesCommand {
         final Crate crate = this.crateManager.getCrate(crateName);
 
         crate.addLocation(block.getLocation().add(new Vector(0.5D, 0.0D, 0.5D)));
-        sender.sendMessage(ChatColor.GREEN + "Creaste un cofre para el crate " + ChatColor.AQUA + crateName + ChatColor.GREEN + " correctamente!");
-      } 
-    } 
+        sender.sendMessage(ChatColor.GREEN + "Creaste un cofre para el crate " + ChatColor.AQUA + crateName
+            + ChatColor.GREEN + " correctamente!");
+      }
+    }
   }
 
   public String getDescription() {
