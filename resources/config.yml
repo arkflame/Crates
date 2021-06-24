@@ -11,5 +11,5 @@ key:
     - "&7Exchange this key on the spawn!"
 
 # Display information for crate inventories
-chest:
-  name: "&eCrate %name%"
+inventory:
+  title: "&eCrate %name%"
