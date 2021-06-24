@@ -4,6 +4,8 @@ import dev._2lstudios.crates.crate.Crate;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.UUID;
+import java.util.Map.Entry;
+
 import org.bukkit.Server;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -70,9 +72,10 @@ public class CratesPlayer {
     if (player != null && player.isOnline()) {
       PlayerInventory playerInventory = player.getInventory();
       if (!this.pendingKeys.isEmpty() && playerInventory.firstEmpty() != -1) {
-        for (Map.Entry<Crate, Integer> entry : (Iterable<Map.Entry<Crate, Integer>>)new HashSet(this.pendingKeys.entrySet())) {
+        for (Entry<Crate, Integer> entry : new HashSet<>(this.pendingKeys.entrySet())) {
           Crate crate = entry.getKey();
-          int amount = ((Integer)entry.getValue()).intValue();
+          int amount = entry.getValue();
+
           while (amount > 0) {
             ItemStack key = crate.getKey().clone();
             if (amount > 64) {
