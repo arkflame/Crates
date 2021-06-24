@@ -25,12 +25,14 @@ class RemoveLocationCommand implements CratesCommand {
     } else if (args.length < 2) {
       sender.sendMessage(ChatColor.RED + "/crate removelocation <name>");
     } else {
-      Block block = ((Player)sender).getTargetBlock((Set)null, 10);
+      Block block = ((Player) sender).getTargetBlock(null, 10);
+
       if (block == null) {
         sender.sendMessage(ChatColor.RED + "No estas apuntando a ningun cofre!");
       } else {
         String crateName = args[1];
         Crate crate = this.crateManager.getCrate(crateName);
+        
         crate.removeLocation(block.getLocation().add(new Vector(0.5D, -0.5D, 0.5D)));
         sender.sendMessage(ChatColor.GREEN + "Quitaste un cofre para el crate " + ChatColor.AQUA + crateName + ChatColor.GREEN + " correctamente!");
       } 
