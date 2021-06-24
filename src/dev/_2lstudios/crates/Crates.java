@@ -32,7 +32,7 @@ public class Crates extends JavaPlugin {
     List<String> keyLore = StringUtil.translateAlternateColorCodes('&', yamlConfiguration.getStringList("key.lore"));
     List<String> hologramLines = StringUtil.translateAlternateColorCodes('&', yamlConfiguration.getStringList("hologram.lines"));
     String keyName = ChatColor.translateAlternateColorCodes('&', yamlConfiguration.getString("key.name"));
-    String chestName = ChatColor.translateAlternateColorCodes('&', yamlConfiguration.getString("chest.name"));
+    String chestName = ChatColor.translateAlternateColorCodes('&', yamlConfiguration.getString("inventory.title"));
     this.crateManager = new CrateManager(configurationUtil, this.plugin, keyLore, hologramLines, keyName, chestName);
     this.cratesPlayerManager = new CratesPlayerManager(this.crateManager, configurationUtil, server);
     getCommand("crates").setExecutor((CommandExecutor)new CratesCommandExecutor(this.crateManager, this.cratesPlayerManager, server));
