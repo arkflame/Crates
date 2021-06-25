@@ -1,9 +1,5 @@
 package dev._2lstudios.crates.listeners;
 
-import dev._2lstudios.crates.config.CratesConfig;
-import dev._2lstudios.crates.crate.Crate;
-import dev._2lstudios.crates.crate.CrateManager;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -14,6 +10,10 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+
+import dev._2lstudios.crates.config.CratesConfig;
+import dev._2lstudios.crates.crate.Crate;
+import dev._2lstudios.crates.crate.CrateManager;
 
 class PlayerInteractListener implements Listener {
   private final CrateManager crateManager;
@@ -47,22 +47,18 @@ class PlayerInteractListener implements Listener {
             if (playerInventory.firstEmpty() == -1) {
               player.sendMessage(cratesConfig.getNoSpace());
             } else if (crate.openKey(player, itemStack)) {
-              player.sendMessage(ChatColor.translateAlternateColorCodes('&', 
-                    "&aAbriste tu key de tipo &b" + crate.getDisplayName() + "&a!"));
+              player.sendMessage(cratesConfig.getValidKey(crate.getDisplayName()));
             } else {
-              player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cNo se pudo abrir la key " + 
-                    keyCrate.getDisplayName() + "&c por un error inesperado!"));
+              player.sendMessage(cratesConfig.getError());
             } 
           } else if (crate != null) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', 
-                  "&cEstas intentando abrir un crate " + crate.getDisplayName() + "&c con una llave " + 
-                  keyCrate.getDisplayName() + "&c!"));
+            player.sendMessage(cratesConfig.getInvalidKey());
           } else {
-            player.sendMessage(ChatColor.RED + "No puedes interactuar con keys en la mano!");
+            player.sendMessage(cratesConfig.getNoInteract());
           } 
           event.setCancelled(true);
         } else if (this.crateManager.getCrate(location) != null) {
-          player.sendMessage(ChatColor.RED + "No tienes ninguna key en la mano para usar!");
+          player.sendMessage(cratesConfig.getNoKeys());
           event.setCancelled(true);
         } 
       } 

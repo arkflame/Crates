@@ -27,7 +27,7 @@ class CheckCommand implements CratesCommand {
       final CratesPlayer cratesPlayer = this.cratesPlayerManager.getPlayer(((Entity)sender).getUniqueId());
       final Map<Crate, Integer> pendingKeys = cratesPlayer.getPendingKeys();
       if (pendingKeys.isEmpty()) {
-        sender.sendMessage(cratesConfig.getNoKeys());
+        sender.sendMessage(cratesConfig.getNoKeysPending());
       } else {
         int amount = 0;
 

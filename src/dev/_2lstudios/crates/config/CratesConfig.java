@@ -18,13 +18,18 @@ public class CratesConfig {
     private final String inventoryTitle;
 
     private final String commandUsage;
+    private final String error;
     private final String noConsole;
     private final String noPermission;
     private final String noBlock;
     private final String noKeys;
+    private final String noKeysPending;
     private final String noSpace;
     private final String noCrate;
+    private final String noInteract;
+    private final String invalidKey;
     private final String invalidNumber;
+    private final String validKey;
     private final String receivedKeys;
 
     private final String helpTitle;
@@ -75,13 +80,18 @@ public class CratesConfig {
         inventoryTitle = configWrapper.getOrDefault("inventory.title", "");
 
         commandUsage = configWrapper.getOrDefault("command_usage", "");
+        error = configWrapper.getOrDefault("error", "");
         noConsole = configWrapper.getOrDefault("no_console", "");
         noPermission = configWrapper.getOrDefault("no_permission", "");
         noBlock = configWrapper.getOrDefault("no_block", "");
         noKeys = configWrapper.getOrDefault("no_keys", "");
+        noKeysPending = configWrapper.getOrDefault("no_keys_pending", "");
         noSpace = configWrapper.getOrDefault("no_space", "");
         noCrate = configWrapper.getOrDefault("no_crate", "");
+        noInteract = configWrapper.getOrDefault("no_crate", "");
+        invalidKey = configWrapper.getOrDefault("invalid_key", "");
         invalidNumber = configWrapper.getOrDefault("invalid_number", "");
+        validKey = configWrapper.getOrDefault("valid_key", "");
         receivedKeys = configWrapper.getOrDefault("received_keys", "");
 
         helpTitle = configWrapper.getOrDefault("help.title", "");
@@ -143,6 +153,10 @@ public class CratesConfig {
                 new Placeholder("%args%", args));
     }
 
+    public String getError() {
+        return error;
+    }
+
     public String getNoConsole() {
         return noConsole;
     }
@@ -159,6 +173,10 @@ public class CratesConfig {
         return noKeys;
     }
 
+    public String getNoKeysPending() {
+        return noKeysPending;
+    }
+
     public String getNoSpace() {
         return noSpace;
     }
@@ -167,8 +185,20 @@ public class CratesConfig {
         return noCrate;
     }
 
+    public String getNoInteract() {
+        return noInteract;
+    }
+
+    public String getInvalidKey() {
+        return invalidKey;
+    }
+
     public String getInvalidNumber() {
         return invalidNumber;
+    }
+
+    public String getValidKey(final String crateName) {
+        return StringUtil.replace(validKey, new Placeholder("%crate_name%", crateName));
     }
 
     public String getReceivedKeys(final String giverName, final int amount, final String crateName) {

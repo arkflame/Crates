@@ -22,7 +22,7 @@ class ClaimCommand implements CratesCommand {
     } else {
       CratesPlayer cratesPlayer = this.cratesPlayerManager.getPlayer(((Entity)sender).getUniqueId());
       if (cratesPlayer.getPendingKeys().isEmpty()) {
-        sender.sendMessage(cratesConfig.getNoKeys());
+        sender.sendMessage(cratesConfig.getNoKeysPending());
       } else {
         int result = cratesPlayer.claimKeys();
         if (result > 0) {

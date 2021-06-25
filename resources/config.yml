@@ -13,13 +13,18 @@ inventory:
   title: "&eCrate %displayname%"
 
 command_usage: "&c/%label% %cmd% %args%"
+error: "&cAn error has occurred, please contact an administrator!"
 no_console: "&cYou can't use this command from the console!"
 no_permission: "&cNot enough permissions!"
 no_block: "&cYou aren't aiming at any block!"
-no_keys: "&cYou have no pending keys to claim!"
+no_keys: "&cYou have no keys in your hand!"
+no_keys_pending: "&cYou have no pending keys to claim!"
 no_space: "&cYou don't have space in your inventory!"
 no_crate: "&cThe crate doesn't exist!"
+no_interact: "&cYou can't interact with keys in your hand!"
+invalid_key: "&cYou are trying to open &b%crate_name%&c with &b%key_name%&c!"
 invalid_number: "&cYou entered an invalid number!"
+valid_key: "&aYou opened a crate of type &b%crate_name%&a!"
 received_keys: "&b%giver_name%&a gave you &b%amount% %crate_name%&a keys!"
 
 help:
