@@ -27,12 +27,8 @@ public class Crates extends JavaPlugin {
     configurationUtil.createConfiguration("%datafolder%/config.yml");
 
     final CratesConfig cratesConfig = new CratesConfig(configurationUtil.getConfiguration("%datafolder%/config.yml"));
-    final List<String> keyLore = cratesConfig.getKeyLore();
-    final List<String> hologramLines = cratesConfig.getHologramLines();
-    final String keyName = cratesConfig.getKeyName();
-    final String chestName = cratesConfig.getInventoryTitle();
 
-    crateManager = new CrateManager(configurationUtil, plugin, keyLore, hologramLines, keyName, chestName);
+    crateManager = new CrateManager(configurationUtil, cratesConfig, plugin);
     cratesPlayerManager = new CratesPlayerManager(crateManager, configurationUtil, server);
 
     getCommand("crates").setExecutor(new CratesCommandExecutor(crateManager, cratesPlayerManager, cratesConfig, server));

@@ -5,7 +5,7 @@ hologram:
     - "&e&lRIGHT CLICK"
 
 # Display information for key items
-key:
+item:
   name: "&eKey %name%"
   lore:
     - "&7Exchange this key on the spawn!"
@@ -53,7 +53,7 @@ displayname:
   description: "Changes displayname of Crates!"
 
 keyall:
-  success: "&You gave &b%amount% %crate_name%&a keys to all players!"
+  success: "&aYou gave &b%amount% %crate_name%&a keys to all players!"
   description: "Gives keys to all players"
 
 key:

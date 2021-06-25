@@ -1,5 +1,6 @@
 package dev._2lstudios.crates.crate;
 
+import dev._2lstudios.crates.config.CratesConfig;
 import dev._2lstudios.crates.util.ConfigurationUtil;
 import java.io.File;
 import java.util.ArrayList;
@@ -18,21 +19,14 @@ import org.bukkit.plugin.Plugin;
 public class CrateManager {
   private final Map<String, Crate> crates;
   private final ConfigurationUtil configurationUtil;
+  private final CratesConfig cratesConfig;
   private final Plugin plugin;
-  private final List<String> genericKeyLore;
-  private final List<String> genericHologramLines;
-  private final String genericKeyName;
-  private final String genericChestName;
 
-  public CrateManager(ConfigurationUtil configurationUtil, Plugin plugin, List<String> genericKeyLore,
-      List<String> genericHologramLines, String genericKeyName, String genericChestName) {
+  public CrateManager(ConfigurationUtil configurationUtil, CratesConfig cratesConfig, Plugin plugin) {
     this.crates = new HashMap<>();
     this.configurationUtil = configurationUtil;
+    this.cratesConfig = cratesConfig;
     this.plugin = plugin;
-    this.genericKeyLore = genericKeyLore;
-    this.genericHologramLines = genericHologramLines;
-    this.genericKeyName = genericKeyName;
-    this.genericChestName = genericChestName;
   }
 
   public Collection<String> getCratesNames() {
@@ -86,12 +80,15 @@ public class CrateManager {
     } else {
       displayName = name;
     }
+    final String itemName = cratesConfig.getItemName().replace("%name%", displayName);
     Inventory inventory = this.plugin.getServer().createInventory(null, 27,
-        this.genericChestName.replace("%name%", displayName));
+        cratesConfig.getInventoryTitle().replace("%name%", displayName));
     Collection<Location> locations = new HashSet<>();
-    List<String> lore = new ArrayList<>(this.genericKeyLore);
-    List<String> hologramLines = new ArrayList<>(this.genericHologramLines);
-    lore.add("ID: " + name);
+    List<String> itemLore = new ArrayList<>(cratesConfig.getItemLore());
+    List<String> hologramLines = new ArrayList<>(cratesConfig.getHologramLines());
+
+    itemLore.add("ID: " + name);
+
     if (contentsSection != null)
       for (String key : contentsSection.getKeys(false)) {
         inventory.addItem(new ItemStack[] { yamlConfiguration.getItemStack("contents." + key) });
@@ -99,8 +96,7 @@ public class CrateManager {
     if (locationsSection != null)
       for (String key : locationsSection.getKeys(false))
         locations.add((Location) yamlConfiguration.get("locations." + key));
-    this.crates.put(name,
-        new Crate(plugin, locations, hologramLines, name, displayName, this.genericKeyName, lore, inventory));
+    this.crates.put(name, new Crate(plugin, locations, hologramLines, name, displayName, itemName, itemLore, inventory));
   }
 
   public void saveCrate(String name, boolean async) {

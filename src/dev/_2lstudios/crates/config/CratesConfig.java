@@ -10,8 +10,8 @@ import dev._2lstudios.crates.util.ConfigWrapper;
 public class CratesConfig {
     private final List<String> hologramLines;
 
-    private final String keyName;
-    private final List<String> keyLore;
+    private final String itemName;
+    private final List<String> itemLore;
 
     private final String inventoryTitle;
 
@@ -67,8 +67,8 @@ public class CratesConfig {
 
         hologramLines = configWrapper.getOrDefault("hologram.lines", new ArrayList<>());
 
-        keyName = configWrapper.getOrDefault("key.name", "");
-        keyLore = configWrapper.getOrDefault("key.lore", new ArrayList<>());
+        itemName = configWrapper.getOrDefault("item.name", "");
+        itemLore = configWrapper.getOrDefault("item.lore", new ArrayList<>());
 
         inventoryTitle = configWrapper.getOrDefault("inventory.title", "");
 
@@ -124,12 +124,12 @@ public class CratesConfig {
         return hologramLines;
     }
 
-    public String getKeyName() {
-        return keyName;
+    public String getItemName() {
+        return itemName;
     }
 
-    public List<String> getKeyLore() {
-        return keyLore;
+    public List<String> getItemLore() {
+        return itemLore;
     }
 
     public String getInventoryTitle() {
