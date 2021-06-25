@@ -1,14 +1,14 @@
 package dev._2lstudios.crates.command;
 
-import dev._2lstudios.crates.crate.Crate;
-import dev._2lstudios.crates.crate.CrateManager;
-import dev._2lstudios.crates.interfaces.CratesCommand;
-import java.util.Set;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
+
+import dev._2lstudios.crates.crate.Crate;
+import dev._2lstudios.crates.crate.CrateManager;
+import dev._2lstudios.crates.interfaces.CratesCommand;
 
 class RemoveLocationCommand implements CratesCommand {
   private final CrateManager crateManager;
