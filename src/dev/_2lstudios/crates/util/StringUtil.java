@@ -10,9 +10,13 @@ public class StringUtil {
     return strings;
   }
   
-  public static List<String> translateAlternateColorCodes(char character, List<String> strings) {
+  public static List<String> translateColorCodes(List<String> strings) {
     for (int i = 0; i < strings.size(); i++)
-      strings.set(i, ChatColor.translateAlternateColorCodes(character, strings.get(i))); 
+      strings.set(i, ChatColor.translateAlternateColorCodes('&', strings.get(i))); 
     return strings;
+  }
+
+  public static String translateColorCodes(String string) {
+    return ChatColor.translateAlternateColorCodes('&', string);
   }
 }
