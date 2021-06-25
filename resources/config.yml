@@ -62,7 +62,7 @@ keyall:
   description: "Gives keys to all players"
 
 key:
-  sucess: "&aYou gave &b%amount% %crate_name%&a keys to &b%player_name%&a!"
+  success: "&aYou gave &b%amount% %crate_name%&a keys to &b%player_name%&a!"
   description: "Gives keys to a player"
 
 list:

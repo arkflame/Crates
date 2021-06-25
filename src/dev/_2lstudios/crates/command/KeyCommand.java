@@ -40,7 +40,9 @@ class KeyCommand implements CratesCommand {
           Player player = this.server.getPlayer(playerName);
           if (player != null && player.isOnline()) {
             CratesPlayer cratesPlayer = this.cratesPlayerManager.getPlayer(player.getUniqueId());
+            
             cratesPlayer.giveKeys(crate, amount);
+            player.sendMessage(cratesConfig.getReceivedKeys(sender.getName(), amount, crate.getDisplayName()));
             sender.sendMessage(cratesConfig.getKeySuccess(amount, crate.getDisplayName(), playerName));
           } 
         } 

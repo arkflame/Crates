@@ -39,8 +39,8 @@ class KeyAllCommand implements CratesCommand {
           for (Player player : this.server.getOnlinePlayers()) {
             CratesPlayer cratesPlayer = this.cratesPlayerManager.getPlayer(player.getUniqueId());
             cratesPlayer.giveKeys(crate, amount);
-            player.sendMessage(cratesConfig.getReceivedKeys(sender.getName(), amount, crateName));
-          } 
+            player.sendMessage(cratesConfig.getReceivedKeys(sender.getName(), amount, crate.getDisplayName()));
+          }
           sender.sendMessage(cratesConfig.getKeyallSuccess(amount, crateName));
         } 
       } catch (NumberFormatException exception) {
