@@ -6,7 +6,6 @@ import org.bukkit.entity.HumanEntity;
 import dev._2lstudios.crates.config.CratesConfig;
 import dev._2lstudios.crates.crate.Crate;
 import dev._2lstudios.crates.crate.CrateManager;
-import dev._2lstudios.crates.interfaces.CratesCommand;
 
 class ContentsCommand implements CratesCommand {
   private final CrateManager crateManager;
@@ -23,17 +22,22 @@ class ContentsCommand implements CratesCommand {
     } else if (!sender.hasPermission("crates.admin")) {
       sender.sendMessage(cratesConfig.getNoPermission());
     } else if (args.length < 2) {
-      sender.sendMessage(cratesConfig.getCommandUsage());
+      sender.sendMessage(cratesConfig.getCommandUsage(label, getName(), getArgs()));
     } else {
       String crateName = args[1];
       Crate crate = this.crateManager.getCrate(crateName);
       if (crate != null) {
         ((HumanEntity)sender).openInventory(crate.getInventory());
-        sender.sendMessage(cratesConfig.getContentsSuccess());
+        sender.sendMessage(cratesConfig.getContentsSuccess(crateName));
       } else {
         sender.sendMessage(cratesConfig.getNoCrate());
       } 
     } 
+  }
+
+  @Override
+  public String getName() {
+    return "contents";
   }
 
   @Override

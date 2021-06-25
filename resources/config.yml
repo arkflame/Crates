@@ -16,7 +16,7 @@ command_usage: "&c/%label% %cmd% %args%"
 no_console: "&cYou can't use this command from the console!"
 no_permission: "&cNot enough permissions!"
 no_block: "&cYou aren't aiming at any block!"
-no_keys: "&cYou have no keys pending to claim!"
+no_keys: "&cYou have no pending keys to claim!"
 no_space: "&cYou don't have space in your inventory!"
 no_crate: "&cThe crate doesn't exist!"
 invalid_number: "&cYou entered an invalid number!"
@@ -48,7 +48,7 @@ create:
   description: "Creates a new Crate!"
 
 displayname:
-  success: "&aYou changed the name of &b%old_name%&a to %new_name%&a!"
+  success: "&aYou changed the displayname of &b%crate_name%&a to %new_name%&a!"
   description: "Changes displayname of Crates!"
 
 keyall:
@@ -64,7 +64,7 @@ list:
   description: "Lists available Crates"
 
 remove:
-  success: "&aYou deleted the crate &b%crate_name%&a!"
+  success: "&aYou removed the crate &b%crate_name%&a!"
   description: "Removes the given Crate"
 
 remove_location:

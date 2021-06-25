@@ -8,7 +8,6 @@ import org.bukkit.util.Vector;
 import dev._2lstudios.crates.config.CratesConfig;
 import dev._2lstudios.crates.crate.Crate;
 import dev._2lstudios.crates.crate.CrateManager;
-import dev._2lstudios.crates.interfaces.CratesCommand;
 
 class AddLocationCommand implements CratesCommand {
   private final CrateManager crateManager;
@@ -25,7 +24,7 @@ class AddLocationCommand implements CratesCommand {
     } else if (!sender.hasPermission("crates.admin")) {
       sender.sendMessage(cratesConfig.getNoPermission());
     } else if (args.length < 2) {
-      sender.sendMessage(cratesConfig.getCommandUsage());
+      sender.sendMessage(cratesConfig.getCommandUsage(label, getName(), getArgs()));
     } else {
       final Block block = ((Player) sender).getTargetBlock(null, 10);
       if (block == null) {
@@ -35,9 +34,14 @@ class AddLocationCommand implements CratesCommand {
         final Crate crate = this.crateManager.getCrate(crateName);
 
         crate.addLocation(block.getLocation().add(new Vector(0.5D, 0.0D, 0.5D)));
-        sender.sendMessage(cratesConfig.getCreateSuccess());
+        sender.sendMessage(cratesConfig.getCreateSuccess(crateName));
       }
     }
+  }
+  
+  @Override
+  public String getName() {
+    return "addlocation";
   }
 
   @Override

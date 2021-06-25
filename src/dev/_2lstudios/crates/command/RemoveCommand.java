@@ -4,7 +4,6 @@ import org.bukkit.command.CommandSender;
 
 import dev._2lstudios.crates.config.CratesConfig;
 import dev._2lstudios.crates.crate.CrateManager;
-import dev._2lstudios.crates.interfaces.CratesCommand;
 
 class RemoveCommand implements CratesCommand {
   private final CrateManager crateManager;
@@ -19,12 +18,17 @@ class RemoveCommand implements CratesCommand {
     if (!sender.hasPermission("crates.admin")) {
       sender.sendMessage(cratesConfig.getNoPermission());
     } else if (args.length < 2) {
-      sender.sendMessage(cratesConfig.getCommandUsage());
+      sender.sendMessage(cratesConfig.getCommandUsage(label, getName(), getArgs()));
     } else {
       String crateName = args[1];
       this.crateManager.removeCrate(crateName);
-      sender.sendMessage(cratesConfig.getRemoveSuccess());
+      sender.sendMessage(cratesConfig.getRemoveSuccess(crateName));
     } 
+  }
+
+  @Override
+  public String getName() {
+    return "remove";
   }
 
   @Override

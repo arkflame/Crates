@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import dev._2lstudios.crates.config.CratesConfig;
 import dev._2lstudios.crates.crate.Crate;
 import dev._2lstudios.crates.crate.CrateManager;
-import dev._2lstudios.crates.interfaces.CratesCommand;
 import dev._2lstudios.crates.player.CratesPlayer;
 import dev._2lstudios.crates.player.CratesPlayerManager;
 
@@ -28,7 +27,7 @@ class KeyCommand implements CratesCommand {
     if (!sender.hasPermission("crates.admin")) {
       sender.sendMessage(cratesConfig.getNoPermission());
     } else if (args.length < 4) {
-      sender.sendMessage(cratesConfig.getCommandUsage());
+      sender.sendMessage(cratesConfig.getCommandUsage(label, getName(), getArgs()));
     } else {
       try {
         String playerName = args[1];
@@ -42,13 +41,18 @@ class KeyCommand implements CratesCommand {
           if (player != null && player.isOnline()) {
             CratesPlayer cratesPlayer = this.cratesPlayerManager.getPlayer(player.getUniqueId());
             cratesPlayer.giveKeys(crate, amount);
-            sender.sendMessage(cratesConfig.getKeySuccess());
+            sender.sendMessage(cratesConfig.getKeySuccess(amount, crate.getDisplayName(), playerName));
           } 
         } 
       } catch (NumberFormatException exception) {
         sender.sendMessage(cratesConfig.getInvalidNumber());
       } 
     } 
+  }
+
+  @Override
+  public String getName() {
+    return "key";
   }
 
   @Override

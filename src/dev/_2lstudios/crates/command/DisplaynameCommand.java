@@ -3,7 +3,7 @@ package dev._2lstudios.crates.command;
 import dev._2lstudios.crates.config.CratesConfig;
 import dev._2lstudios.crates.crate.Crate;
 import dev._2lstudios.crates.crate.CrateManager;
-import dev._2lstudios.crates.interfaces.CratesCommand;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -20,7 +20,7 @@ class DisplaynameCommand implements CratesCommand {
     if (!sender.hasPermission("crates.admin")) {
       sender.sendMessage(cratesConfig.getNoPermission());
     } else if (args.length < 3) {
-      sender.sendMessage(cratesConfig.getCommandUsage());
+      sender.sendMessage(cratesConfig.getCommandUsage(label, getName(), getArgs()));
     } else {
       String crateName = args[1];
       Crate crate = this.crateManager.getCrate(crateName);
@@ -33,11 +33,16 @@ class DisplaynameCommand implements CratesCommand {
         String displayName = displayNameBuilder.toString().trim();
         crate.setDisplayName(displayName);
         crate.spawnHolograms();
-        sender.sendMessage(cratesConfig.getDisplaynameSuccess());
+        sender.sendMessage(cratesConfig.getDisplaynameSuccess(crateName, displayName));
       } else {
         sender.sendMessage(cratesConfig.getNoCrate());
       } 
     } 
+  }
+
+  @Override
+  public String getName() {
+    return "displayname";
   }
 
   @Override

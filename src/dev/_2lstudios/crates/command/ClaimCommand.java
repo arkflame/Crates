@@ -4,7 +4,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 
 import dev._2lstudios.crates.config.CratesConfig;
-import dev._2lstudios.crates.interfaces.CratesCommand;
 import dev._2lstudios.crates.player.CratesPlayer;
 import dev._2lstudios.crates.player.CratesPlayerManager;
 
@@ -27,12 +26,17 @@ class ClaimCommand implements CratesCommand {
       } else {
         int result = cratesPlayer.claimKeys();
         if (result > 0) {
-          sender.sendMessage(cratesConfig.getClaimSuccess());
+          sender.sendMessage(cratesConfig.getClaimSuccess(result));
         } else {
           sender.sendMessage(cratesConfig.getNoSpace());
         } 
       } 
     } 
+  }
+
+  @Override
+  public String getName() {
+    return "claim";
   }
 
   @Override

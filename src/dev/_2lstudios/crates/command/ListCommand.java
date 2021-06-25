@@ -4,7 +4,6 @@ import org.bukkit.command.CommandSender;
 
 import dev._2lstudios.crates.config.CratesConfig;
 import dev._2lstudios.crates.crate.CrateManager;
-import dev._2lstudios.crates.interfaces.CratesCommand;
 
 class ListCommand implements CratesCommand {
   private final CrateManager crateManager;
@@ -21,8 +20,13 @@ class ListCommand implements CratesCommand {
     } else {
       String crates = this.crateManager.getCratesNames().toArray(new String[0]).toString();
 
-      sender.sendMessage(cratesConfig.getListSuccess());
+      sender.sendMessage(cratesConfig.getListSuccess(crates));
     } 
+  }
+
+  @Override
+  public String getName() {
+    return "list";
   }
 
   @Override

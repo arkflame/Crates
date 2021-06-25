@@ -8,7 +8,6 @@ import org.bukkit.entity.Entity;
 
 import dev._2lstudios.crates.config.CratesConfig;
 import dev._2lstudios.crates.crate.Crate;
-import dev._2lstudios.crates.interfaces.CratesCommand;
 import dev._2lstudios.crates.player.CratesPlayer;
 import dev._2lstudios.crates.player.CratesPlayerManager;
 
@@ -40,6 +39,11 @@ class CheckCommand implements CratesCommand {
         sender.sendMessage(cratesConfig.getCheckSuccess(amount));
       } 
     } 
+  }
+
+  @Override
+  public String getName() {
+    return "check";
   }
 
   @Override

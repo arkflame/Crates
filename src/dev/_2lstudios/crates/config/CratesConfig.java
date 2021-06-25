@@ -138,8 +138,9 @@ public class CratesConfig {
         return StringUtil.replace(inventoryTitle, new Placeholder("%displayname%", displayName));
     }
 
-    public String getCommandUsage() {
-        return commandUsage;
+    public String getCommandUsage(final String label, final String cmd, final String args) {
+        return StringUtil.replace(commandUsage, new Placeholder("%label%", label), new Placeholder("%cmd%", cmd),
+                new Placeholder("%args%", args));
     }
 
     public String getNoConsole() {
@@ -170,8 +171,8 @@ public class CratesConfig {
         return invalidNumber;
     }
 
-    public String getReceivedKeys() {
-        return receivedKeys;
+    public String getReceivedKeys(final String giverName, final int amount, final String crateName) {
+        return StringUtil.replace(receivedKeys, new Placeholder("%giver_name%", giverName), new Placeholder("%amount%", amount), new Placeholder("%crate_name%", crateName));
     }
 
     public String getHelpTitle() {
@@ -187,8 +188,8 @@ public class CratesConfig {
         return helpSubtitle;
     }
 
-    public String getAddLocationSuccess() {
-        return addLocationSuccess;
+    public String getAddLocationSuccess(final String crateName) {
+        return StringUtil.replace(addLocationSuccess, new Placeholder("%crate_name%", crateName));
     }
 
     public String getAddLocationDescription() {
@@ -203,72 +204,72 @@ public class CratesConfig {
         return checkDescription;
     }
 
-    public String getClaimSuccess() {
-        return claimSuccess;
+    public String getClaimSuccess(final int amount) {
+        return StringUtil.replace(claimSuccess, new Placeholder("%amount%", amount));
     }
 
     public String getClaimDescription() {
         return claimDescription;
     }
 
-    public String getContentsSuccess() {
-        return contentsSuccess;
+    public String getContentsSuccess(final String crateName) {
+        return StringUtil.replace(contentsSuccess, new Placeholder("%crate_name%", crateName));
     }
 
     public String getContentsDescription() {
         return contentsDescription;
     }
 
-    public String getCreateSuccess() {
-        return createSuccess;
+    public String getCreateSuccess(final String crateName) {
+        return StringUtil.replace(createSuccess, new Placeholder("%crate_name%", crateName));
     }
 
     public String getCreateDescription() {
         return createDescription;
     }
 
-    public String getDisplaynameSuccess() {
-        return displaynameSuccess;
+    public String getDisplaynameSuccess(final String crateName, final String newName) {
+        return StringUtil.replace(displaynameSuccess, new Placeholder("%crate_name%", crateName), new Placeholder("%new_name%", newName));
     }
 
     public String getDisplaynameDescription() {
         return displaynameDescription;
     }
 
-    public String getKeyallSuccess() {
-        return keyallSuccess;
+    public String getKeyallSuccess(final int amount, final String crateName) {
+        return StringUtil.replace(keyallSuccess, new Placeholder("%amount%", amount), new Placeholder("%crate_name%", crateName));
     }
 
     public String getKeyallDescription() {
         return keyallDescription;
     }
 
-    public String getKeySuccess() {
-        return keySuccess;
+    public String getKeySuccess(final int amount, final String crateName, final String playerName) {
+        return StringUtil.replace(keySuccess, new Placeholder("%amount%", amount), new Placeholder("%crate_name%", crateName), new Placeholder("%player_name%", playerName));
     }
 
     public String getKeyDescription() {
         return keyDescription;
     }
 
-    public String getListSuccess() {
-        return listSuccess;
+    public String getListSuccess(final String cratesList) {
+        return StringUtil.replace(listSuccess, new Placeholder("%crates_list%", cratesList));
     }
 
     public String getListDescription() {
         return listDescription;
     }
 
-    public String getRemoveSuccess() {
-        return removeSuccess;
+    public String getRemoveSuccess(final String crateName) {
+        return StringUtil.replace(removeSuccess, new Placeholder("%crate_name%", crateName));
     }
 
     public String getRemoveDescription() {
         return removeDescription;
     }
 
-    public String getRemoveLocationSuccess() {
-        return removeLocationSuccess;
+    public String getRemoveLocationSuccess(final String crateName) {
+        return StringUtil.replace(removeLocationSuccess, new Placeholder("%crate_name%", crateName));
     }
 
     public String getRemoveLocationDescription() {
