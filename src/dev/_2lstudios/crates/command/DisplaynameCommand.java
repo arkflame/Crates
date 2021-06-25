@@ -1,5 +1,6 @@
 package dev._2lstudios.crates.command;
 
+import dev._2lstudios.crates.config.CratesConfig;
 import dev._2lstudios.crates.crate.Crate;
 import dev._2lstudios.crates.crate.CrateManager;
 import dev._2lstudios.crates.interfaces.CratesCommand;
@@ -8,16 +9,18 @@ import org.bukkit.command.CommandSender;
 
 class DisplaynameCommand implements CratesCommand {
   private final CrateManager crateManager;
+  private final CratesConfig cratesConfig;
   
-  DisplaynameCommand(CrateManager crateManager) {
+  DisplaynameCommand(CrateManager crateManager, final CratesConfig cratesConfig) {
     this.crateManager = crateManager;
+    this.cratesConfig = cratesConfig;
   }
   
   public void execute(CommandSender sender, String label, String[] args) {
     if (!sender.hasPermission("crates.admin")) {
-      sender.sendMessage(ChatColor.RED + "No tienes permiso para usar ese comando!");
+      sender.sendMessage(cratesConfig.getNoPermission());
     } else if (args.length < 3) {
-      sender.sendMessage(ChatColor.RED + "/crate displayname <name> <displayname>");
+      sender.sendMessage(cratesConfig.getCommandUsage());
     } else {
       String crateName = args[1];
       Crate crate = this.crateManager.getCrate(crateName);
@@ -30,14 +33,25 @@ class DisplaynameCommand implements CratesCommand {
         String displayName = displayNameBuilder.toString().trim();
         crate.setDisplayName(displayName);
         crate.spawnHolograms();
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aModificaste el nombre de&b " + crateName + "&a a " + displayName + "&a!"));
+        sender.sendMessage(cratesConfig.getDisplaynameSuccess());
       } else {
-        sender.sendMessage(ChatColor.RED + "El crate solicitado no existe!");
+        sender.sendMessage(cratesConfig.getNoCrate());
       } 
     } 
   }
 
+  @Override
   public String getDescription() {
-    return "Changes displayname of Crates";
+    return cratesConfig.getDisplaynameDescription();
+  }
+
+  @Override
+  public String getArgs() {
+    return "<crate> <displayname>";
+  }
+
+  @Override
+  public String getName() {
+    return "displayname";
   }
 }

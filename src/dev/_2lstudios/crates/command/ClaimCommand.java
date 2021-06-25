@@ -1,38 +1,52 @@
 package dev._2lstudios.crates.command;
 
-import dev._2lstudios.crates.interfaces.CratesCommand;
-import dev._2lstudios.crates.player.CratesPlayer;
-import dev._2lstudios.crates.player.CratesPlayerManager;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 
+import dev._2lstudios.crates.config.CratesConfig;
+import dev._2lstudios.crates.interfaces.CratesCommand;
+import dev._2lstudios.crates.player.CratesPlayer;
+import dev._2lstudios.crates.player.CratesPlayerManager;
+
 class ClaimCommand implements CratesCommand {
   private final CratesPlayerManager cratesPlayerManager;
-  
-  ClaimCommand(CratesPlayerManager cratesPlayerManager) {
+  private final CratesConfig cratesConfig;
+
+  ClaimCommand(final CratesPlayerManager cratesPlayerManager, final CratesConfig cratesConfig) {
     this.cratesPlayerManager = cratesPlayerManager;
+    this.cratesConfig = cratesConfig;
   }
   
   public void execute(CommandSender sender, String label, String[] args) {
     if (!(sender instanceof org.bukkit.entity.Player)) {
-      sender.sendMessage(ChatColor.RED + "No puedes utilizar este comando desde la consola!");
+      sender.sendMessage(cratesConfig.getNoConsole());
     } else {
       CratesPlayer cratesPlayer = this.cratesPlayerManager.getPlayer(((Entity)sender).getUniqueId());
       if (cratesPlayer.getPendingKeys().isEmpty()) {
-        sender.sendMessage(ChatColor.RED + "No tienes keys pendientes para reclamar!");
+        sender.sendMessage(cratesConfig.getNoKeys());
       } else {
         int result = cratesPlayer.claimKeys();
         if (result > 0) {
-          sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aReclamaste un total de &b" + result + "&a keys!"));
+          sender.sendMessage(cratesConfig.getClaimSuccess());
         } else {
-          sender.sendMessage(ChatColor.RED + "No tienes espacio suficiente en tu inventario!");
+          sender.sendMessage(cratesConfig.getNoSpace());
         } 
       } 
     } 
   }
 
+  @Override
   public String getDescription() {
-    return "Claim your pending keys";
+    return cratesConfig.getClaimDescription();
+  }
+
+  @Override
+  public String getArgs() {
+    return "";
+  }
+
+  @Override
+  public String getName() {
+    return "claim";
   }
 }

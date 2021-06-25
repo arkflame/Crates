@@ -6,4 +6,8 @@ public interface CratesCommand {
   void execute(CommandSender paramCommandSender, String paramString, String[] paramArrayOfString);
 
   String getDescription();
+
+  String getArgs();
+
+  String getName();
 }
