@@ -6,7 +6,6 @@ import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitScheduler;
 
 import dev._2lstudios.crates.command.CratesCommandExecutor;
 import dev._2lstudios.crates.config.CratesConfig;
@@ -20,8 +19,8 @@ public class Crates extends JavaPlugin {
   private CrateManager crateManager;
   private CratesPlayerManager cratesPlayerManager;
   private ListenerInitializer listenerInitializer;
-  
-  private void enable() {
+
+  public void onEnable() {
     final Server server = getServer();
     final ConfigurationUtil configurationUtil = new ConfigurationUtil(plugin);
 
@@ -42,12 +41,6 @@ public class Crates extends JavaPlugin {
     crateManager.spawnHolograms();
     listenerInitializer = new ListenerInitializer(plugin, crateManager, cratesPlayerManager);
     listenerInitializer.initialize();
-  }
-
-  public void onEnable() {
-    final BukkitScheduler scheduler = getServer().getScheduler();
-
-    scheduler.runTaskAsynchronously(this, this::enable);
   }
   
   public void onDisable() {
