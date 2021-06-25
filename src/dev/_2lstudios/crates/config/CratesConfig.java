@@ -21,12 +21,16 @@ public class CratesConfig {
     private final String noPermission;
     private final String noBlock;
     private final String noKeys;
+    private final String noSpace;
 
     private final String addLocationSuccess;
     private final String addLocationDescription;
 
     private final String checkSuccess;
     private final String checkDescription;
+
+    private final String claimSuccess;
+    private final String claimDescription;
 
     public CratesConfig(final Configuration config) {
         final ConfigWrapper configWrapper = new ConfigWrapper(config);
@@ -44,11 +48,15 @@ public class CratesConfig {
         noPermission = configWrapper.getOrDefault("no_permission", "");
         noBlock = configWrapper.getOrDefault("no_block", "");
         noKeys = configWrapper.getOrDefault("no_keys", "");
+        noSpace = configWrapper.getOrDefault("no_space", "");
 
         addLocationSuccess = configWrapper.getOrDefault("add_location.success", "");
         addLocationDescription = configWrapper.getOrDefault("add_location.description", "");
 
         checkSuccess = configWrapper.getOrDefault("check.success", "");
         checkDescription = configWrapper.getOrDefault("check.description", "");
+    
+        claimSuccess = configWrapper.getOrDefault("claim.success", "");
+        claimDescription = configWrapper.getOrDefault("claim.description", "");
     }
 }

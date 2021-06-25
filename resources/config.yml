@@ -20,6 +20,7 @@ no_console: "&cYou can't use this command from the console!"
 no_permission: "&cNot enough permissions!"
 no_block: "&cYou aren't aiming at any block!"
 no_keys: "&cYou have no keys pending to claim!"
+no_space: "&cYou don't have space in your inventory!"
 
 add_location:
   success: "&aYou added a location for the crate &b%name%&a!"
@@ -28,3 +29,7 @@ add_location:
 check:
   success: "&aYou have &b%amount%&a keys to claim!"
   description: "Checks your pending keys!"
+
+claim:
+  success: "&aYou claimed a total of &b%amount%&a keys!"
+  description: "Claim your pending keys!"
