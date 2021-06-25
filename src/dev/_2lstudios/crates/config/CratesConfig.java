@@ -16,7 +16,6 @@ public class CratesConfig {
     private final String inventoryTitle;
 
     private final String commandUsage;
-
     private final String noConsole;
     private final String noPermission;
     private final String noBlock;
@@ -24,6 +23,7 @@ public class CratesConfig {
     private final String noSpace;
     private final String noCrate;
     private final String invalidNumber;
+    private final String receivedKeys;
 
     private final String addLocationSuccess;
     private final String addLocationDescription;
@@ -69,7 +69,6 @@ public class CratesConfig {
         inventoryTitle = configWrapper.getOrDefault("inventory.title", "");
 
         commandUsage = configWrapper.getOrDefault("command_usage", "");
-
         noConsole = configWrapper.getOrDefault("no_console", "");
         noPermission = configWrapper.getOrDefault("no_permission", "");
         noBlock = configWrapper.getOrDefault("no_block", "");
@@ -77,6 +76,7 @@ public class CratesConfig {
         noSpace = configWrapper.getOrDefault("no_space", "");
         noCrate = configWrapper.getOrDefault("no_crate", "");
         invalidNumber = configWrapper.getOrDefault("invalid_number", "");
+        receivedKeys = configWrapper.getOrDefault("received_keys", "");
 
         addLocationSuccess = configWrapper.getOrDefault("add_location.success", "");
         addLocationDescription = configWrapper.getOrDefault("add_location.description", "");
@@ -158,6 +158,10 @@ public class CratesConfig {
 
     public String getInvalidNumber() {
         return invalidNumber;
+    }
+
+    public String getReceivedKeys() {
+        return receivedKeys;
     }
 
     public String getAddLocationSuccess() {
@@ -247,6 +251,4 @@ public class CratesConfig {
     public String getRemoveLocationDescription() {
         return removeLocationDescription;
     }
-
-    
 }

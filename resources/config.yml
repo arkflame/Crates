@@ -11,10 +11,9 @@ key:
     - "&7Exchange this key on the spawn!"
 
 inventory:
-  title: "&eCrate %key_name%"
+  title: "&eCrate %crate_name%"
 
 command_usage: "&c/%label% %cmd% %args%"
-
 no_console: "&cYou can't use this command from the console!"
 no_permission: "&cNot enough permissions!"
 no_block: "&cYou aren't aiming at any block!"
@@ -22,6 +21,7 @@ no_keys: "&cYou have no keys pending to claim!"
 no_space: "&cYou don't have space in your inventory!"
 no_crate: "&cThe crate doesn't exist!"
 invalid_number: "&cYou entered an invalid number!"
+received_keys: "&b%giver_name%&a gave you &b%amount% %crate_name%&a keys!"
 
 help:
   title: "&aCrates &b0.0.1&a by &b2LS&r\n"
@@ -52,11 +52,11 @@ displayname:
   description: "Changes displayname of Crates!"
 
 keyall:
-  success: "&You gave &b%amount% %key_name%&a keys to all players!"
+  success: "&You gave &b%amount% %crate_name%&a keys to all players!"
   description: "Gives keys to all players"
 
 key:
-  sucess: "&aYou gave &b%amount% %key_name%&a keys to &b%player_name%&a!"
+  sucess: "&aYou gave &b%amount% %crate_name%&a keys to &b%player_name%&a!"
   description: "Gives keys to a player"
 
 list:
