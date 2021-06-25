@@ -1,5 +1,6 @@
 package dev._2lstudios.crates.listeners;
 
+import dev._2lstudios.crates.config.CratesConfig;
 import dev._2lstudios.crates.crate.Crate;
 import dev._2lstudios.crates.crate.CrateManager;
 import org.bukkit.ChatColor;
@@ -16,9 +17,11 @@ import org.bukkit.inventory.PlayerInventory;
 
 class PlayerInteractListener implements Listener {
   private final CrateManager crateManager;
+  private final CratesConfig cratesConfig;
   
-  PlayerInteractListener(CrateManager crateManager) {
+  PlayerInteractListener(CrateManager crateManager, CratesConfig cratesConfig) {
     this.crateManager = crateManager;
+    this.cratesConfig = cratesConfig;
   }
   
   @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
@@ -42,7 +45,7 @@ class PlayerInteractListener implements Listener {
           if (crate == keyCrate) {
             PlayerInventory playerInventory = player.getInventory();
             if (playerInventory.firstEmpty() == -1) {
-              player.sendMessage(ChatColor.RED + "No puedes abrir keys con el inventario lleno!");
+              player.sendMessage(cratesConfig.getNoSpace());
             } else if (crate.openKey(player, itemStack)) {
               player.sendMessage(ChatColor.translateAlternateColorCodes('&', 
                     "&aAbriste tu key de tipo &b" + crate.getDisplayName() + "&a!"));

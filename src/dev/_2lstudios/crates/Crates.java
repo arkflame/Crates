@@ -33,7 +33,7 @@ public class Crates extends JavaPlugin {
 
     crateManager.loadCrates();
     crateManager.spawnHolograms();
-    listenerInitializer = new ListenerInitializer(plugin, crateManager, cratesPlayerManager);
+    listenerInitializer = new ListenerInitializer(plugin, crateManager, cratesPlayerManager, cratesConfig);
     listenerInitializer.initialize();
   }
   
