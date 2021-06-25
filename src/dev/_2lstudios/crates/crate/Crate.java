@@ -1,7 +1,5 @@
 package dev._2lstudios.crates.crate;
 
-import dev._2lstudios.crates.util.StringUtil;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -21,28 +19,26 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
+import dev._2lstudios.crates.config.CratesConfig;
+
 public class Crate {
   private final Plugin plugin;
+  private final CratesConfig cratesConfig;
   private final Collection<Hologram> holograms = new HashSet<>();
   private final Collection<Location> locations;
-  private final List<String> hologramLines;
-  private final List<String> lore;
   private final String name;
-  private final String itemName;
   private final Inventory rewardsInventory;
 
   private String displayName;
 
-  Crate(final Plugin plugin, final Collection<Location> locations, final List<String> hologramLines, final String name,
-      final String displayName, final String keyName, final List<String> lore,
+  Crate(final Plugin plugin, final CratesConfig cratesConfig, final Collection<Location> locations, final String name,
+      final String displayName,
       final Inventory rewardsInventory) {
     this.plugin = plugin;
+    this.cratesConfig = cratesConfig;
     this.locations = locations;
-    this.hologramLines = hologramLines;
     this.name = name;
     this.displayName = displayName;
-    this.itemName = keyName;
-    this.lore = lore;
     this.rewardsInventory = rewardsInventory;
   }
 
@@ -54,8 +50,8 @@ public class Crate {
     return this.displayName;
   }
 
-  public String getItemDisplayName() {
-    return this.itemName.replace("%name%", this.displayName);
+  public String getItemName() {
+    return cratesConfig.getItemName(displayName);
   }
 
   public Collection<Location> getLocations() {
@@ -63,11 +59,15 @@ public class Crate {
   }
 
   public List<String> getHologramLines() {
-    return StringUtil.replace(new ArrayList<>(this.hologramLines), "%name%", this.displayName);
+    return cratesConfig.getHologramLines(displayName);
   }
 
-  public List<String> getLore() {
-    return StringUtil.replace(new ArrayList<>(this.lore), "%name%", this.displayName);
+  public List<String> getItemLore() {
+    final List<String> itemLore = cratesConfig.getItemLore(displayName);
+
+    itemLore.add("ID: " + name);
+
+    return itemLore;
   }
 
   public Inventory getInventory() {
@@ -78,10 +78,11 @@ public class Crate {
     final ItemStack keyItemStack = new ItemStack(Material.TRIPWIRE_HOOK);
     final ItemMeta keyItemMeta = keyItemStack.getItemMeta();
 
-    keyItemMeta.setDisplayName(getItemDisplayName());
-    keyItemMeta.setLore(getLore());
+    keyItemMeta.setDisplayName(getItemName());
+    keyItemMeta.setLore(getItemLore());
     keyItemMeta.addEnchant(Enchantment.DURABILITY, 0, false);
     keyItemStack.setItemMeta(keyItemMeta);
+
     return keyItemStack;
   }
 

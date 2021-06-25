@@ -8,6 +8,4 @@ public interface CratesCommand {
   String getDescription();
 
   String getArgs();
-
-  String getName();
 }

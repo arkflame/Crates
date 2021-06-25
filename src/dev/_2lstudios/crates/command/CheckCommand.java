@@ -31,11 +31,13 @@ class CheckCommand implements CratesCommand {
         sender.sendMessage(cratesConfig.getNoKeys());
       } else {
         int amount = 0;
+
         for (final Iterator<Integer> iterator = pendingKeys.values().iterator(); iterator.hasNext(); ) {
           final int amount1 = ((Integer)iterator.next()).intValue();
           amount += amount1;
         } 
-        sender.sendMessage(cratesConfig.getCheckSuccess());
+        
+        sender.sendMessage(cratesConfig.getCheckSuccess(amount));
       } 
     } 
   }
@@ -48,10 +50,5 @@ class CheckCommand implements CratesCommand {
   @Override
   public String getArgs() {
     return "";
-  }
-
-  @Override
-  public String getName() {
-    return "check";
   }
 }

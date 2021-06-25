@@ -1,14 +1,11 @@
 package dev._2lstudios.crates.crate;
 
-import dev._2lstudios.crates.config.CratesConfig;
-import dev._2lstudios.crates.util.ConfigurationUtil;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
+
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -16,13 +13,16 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
+import dev._2lstudios.crates.config.CratesConfig;
+import dev._2lstudios.crates.util.ConfigurationUtil;
+
 public class CrateManager {
   private final Map<String, Crate> crates;
   private final ConfigurationUtil configurationUtil;
   private final CratesConfig cratesConfig;
   private final Plugin plugin;
 
-  public CrateManager(ConfigurationUtil configurationUtil, CratesConfig cratesConfig, Plugin plugin) {
+  public CrateManager(final ConfigurationUtil configurationUtil, final CratesConfig cratesConfig, final Plugin plugin) {
     this.crates = new HashMap<>();
     this.configurationUtil = configurationUtil;
     this.cratesConfig = cratesConfig;
@@ -37,78 +37,80 @@ public class CrateManager {
     return this.crates.values();
   }
 
-  public Crate getCrate(Location location) {
-    for (Crate crate : getCrates()) {
+  public Crate getCrate(final Location location) {
+    for (final Crate crate : getCrates()) {
       if (crate.checkLocation(location))
         return crate;
     }
     return null;
   }
 
-  public Crate getCrate(ItemStack itemStack) {
-    for (Crate crate : getCrates()) {
+  public Crate getCrate(final ItemStack itemStack) {
+    for (final Crate crate : getCrates()) {
       if (crate.isKey(itemStack))
         return crate;
     }
     return null;
   }
 
-  public Crate getCrate(String crateName) {
+  public Crate getCrate(final String crateName) {
     return this.crates.getOrDefault(crateName, null);
   }
 
   public void loadCrates() {
-    File[] cratesFileList = (new File(this.plugin.getDataFolder() + "/crates")).listFiles();
+    final File[] cratesFileList = (new File(this.plugin.getDataFolder() + "/crates")).listFiles();
     if (cratesFileList != null)
-      for (File crateFile : cratesFileList)
+      for (final File crateFile : cratesFileList)
         loadCrate(crateFile.getName().replace(".yml", ""));
   }
 
-  public void saveCrates(boolean async) {
-    for (String crateName : this.crates.keySet())
+  public void saveCrates(final boolean async) {
+    for (final String crateName : this.crates.keySet())
       saveCrate(crateName, async);
   }
 
-  public void loadCrate(String name) {
+  public void loadCrate(final String name) {
     String displayName;
-    YamlConfiguration yamlConfiguration = this.configurationUtil
+    final YamlConfiguration yamlConfiguration = this.configurationUtil
         .getConfiguration("%datafolder%/crates/" + name + ".yml");
-    ConfigurationSection contentsSection = yamlConfiguration.getConfigurationSection("contents");
-    ConfigurationSection locationsSection = yamlConfiguration.getConfigurationSection("locations");
+    final ConfigurationSection contentsSection = yamlConfiguration.getConfigurationSection("contents");
+    final ConfigurationSection locationsSection = yamlConfiguration.getConfigurationSection("locations");
+
     if (yamlConfiguration.contains("displayname")) {
       displayName = yamlConfiguration.getString("displayname");
     } else {
       displayName = name;
     }
-    final String itemName = cratesConfig.getItemName().replace("%name%", displayName);
-    Inventory inventory = this.plugin.getServer().createInventory(null, 27,
-        cratesConfig.getInventoryTitle().replace("%name%", displayName));
-    Collection<Location> locations = new HashSet<>();
-    List<String> itemLore = new ArrayList<>(cratesConfig.getItemLore());
-    List<String> hologramLines = new ArrayList<>(cratesConfig.getHologramLines());
 
-    itemLore.add("ID: " + name);
+    final Inventory inventory = this.plugin.getServer().createInventory(null, 27,
+        cratesConfig.getInventoryTitle(displayName));
+    final Collection<Location> locations = new HashSet<>();
 
-    if (contentsSection != null)
-      for (String key : contentsSection.getKeys(false)) {
+    if (contentsSection != null) {
+      for (final String key : contentsSection.getKeys(false)) {
         inventory.addItem(new ItemStack[] { yamlConfiguration.getItemStack("contents." + key) });
       }
-    if (locationsSection != null)
-      for (String key : locationsSection.getKeys(false))
+    }
+
+    if (locationsSection != null) {
+      for (final String key : locationsSection.getKeys(false)) {
         locations.add((Location) yamlConfiguration.get("locations." + key));
-    this.crates.put(name, new Crate(plugin, locations, hologramLines, name, displayName, itemName, itemLore, inventory));
+      }
+    }
+
+    this.crates.put(name, new Crate(plugin, cratesConfig, locations, name, displayName, inventory));
   }
 
-  public void saveCrate(String name, boolean async) {
-    Crate crate = getCrate(name);
-    YamlConfiguration config = new YamlConfiguration();
+  public void saveCrate(final String name, final boolean async) {
+    final Crate crate = getCrate(name);
+    final YamlConfiguration config = new YamlConfiguration();
     int index = 0;
-    for (ItemStack itemStack : crate.getInventory().getContents()) {
+    for (final ItemStack itemStack : crate.getInventory().getContents()) {
       config.set("contents." + index, itemStack);
       index++;
     }
     index = 0;
-    for (Location location : crate.getLocations()) {
+    for (final Location location : crate.getLocations()) {
       config.set("locations." + index, location);
       index++;
     }
@@ -116,9 +118,9 @@ public class CrateManager {
     this.configurationUtil.saveConfiguration(config, "%datafolder%/crates/" + name + ".yml", async);
   }
 
-  public void removeCrate(String crateName) {
+  public void removeCrate(final String crateName) {
     if (this.crates.containsKey(crateName)) {
-      Crate crate = this.crates.get(crateName);
+      final Crate crate = this.crates.get(crateName);
       crate.despawnHolograms();
       this.crates.remove(crateName);
       this.configurationUtil.deleteConfiguration("%datafolder%/crates/" + crateName + ".yml", true);
@@ -126,12 +128,12 @@ public class CrateManager {
   }
 
   public void spawnHolograms() {
-    for (Crate crate : this.crates.values())
+    for (final Crate crate : this.crates.values())
       crate.spawnHolograms();
   }
 
   public void despawnHolograms() {
-    for (Crate crate : this.crates.values())
+    for (final Crate crate : this.crates.values())
       crate.despawnHolograms();
   }
 }

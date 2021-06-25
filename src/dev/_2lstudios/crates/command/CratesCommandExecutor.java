@@ -48,7 +48,7 @@ public class CratesCommandExecutor implements CommandExecutor {
         final String key = entry.getKey();
         final CratesCommand cratesCommand = entry.getValue();
 
-        message.append(cratesConfig.getHelpCommand()); 
+        message.append(cratesConfig.getHelpCommand(label, key, cratesCommand.getArgs(), cratesCommand.getDescription())); 
       }
 
       message.append(cratesConfig.getHelpSubtitle());

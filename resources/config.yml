@@ -1,17 +1,16 @@
 # Display information for crate chests holograms
-hologram:
-  lines:
-    - "&eCrate %name%"
-    - "&e&lRIGHT CLICK"
+hologram_lines:
+  - "&eCrate %displayname%"
+  - "&e&lRIGHT CLICK"
 
 # Display information for key items
 item:
-  name: "&eKey %name%"
+  name: "&eKey %displayname%"
   lore:
-    - "&7Exchange this key on the spawn!"
+    - "&7Exchange %displayname%&7 key on the spawn!"
 
 inventory:
-  title: "&eCrate %crate_name%"
+  title: "&eCrate %displayname%"
 
 command_usage: "&c/%label% %cmd% %args%"
 no_console: "&cYou can't use this command from the console!"

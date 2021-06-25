@@ -36,9 +36,4 @@ class CreateCommand implements CratesCommand {
   public String getArgs() {
     return "<crate>";
   }
-
-  @Override
-  public String getName() {
-    return "create";
-  }
 }

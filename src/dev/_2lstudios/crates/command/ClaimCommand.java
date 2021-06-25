@@ -44,9 +44,4 @@ class ClaimCommand implements CratesCommand {
   public String getArgs() {
     return "";
   }
-
-  @Override
-  public String getName() {
-    return "claim";
-  }
 }

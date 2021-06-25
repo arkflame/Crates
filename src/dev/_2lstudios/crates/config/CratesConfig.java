@@ -6,6 +6,8 @@ import java.util.List;
 import org.bukkit.configuration.Configuration;
 
 import dev._2lstudios.crates.util.ConfigWrapper;
+import dev._2lstudios.crates.util.Placeholder;
+import dev._2lstudios.crates.util.StringUtil;
 
 public class CratesConfig {
     private final List<String> hologramLines;
@@ -65,7 +67,7 @@ public class CratesConfig {
     public CratesConfig(final Configuration config) {
         final ConfigWrapper configWrapper = new ConfigWrapper(config);
 
-        hologramLines = configWrapper.getOrDefault("hologram.lines", new ArrayList<>());
+        hologramLines = configWrapper.getOrDefault("hologram_lines", new ArrayList<>());
 
         itemName = configWrapper.getOrDefault("item.name", "");
         itemLore = configWrapper.getOrDefault("item.lore", new ArrayList<>());
@@ -120,20 +122,20 @@ public class CratesConfig {
         removeLocationDescription = configWrapper.getOrDefault("remove_location.description", "");
     }
 
-    public List<String> getHologramLines() {
-        return hologramLines;
+    public List<String> getHologramLines(final String displayName) {
+        return StringUtil.replace(new ArrayList<>(hologramLines), new Placeholder("%displayname%", displayName));
     }
 
-    public String getItemName() {
-        return itemName;
+    public String getItemName(final String displayName) {
+        return StringUtil.replace(itemName, new Placeholder("%displayname%", displayName));
     }
 
-    public List<String> getItemLore() {
-        return itemLore;
+    public List<String> getItemLore(final String displayName) {
+        return StringUtil.replace(new ArrayList<>(itemLore), new Placeholder("%displayname%", displayName));
     }
 
-    public String getInventoryTitle() {
-        return inventoryTitle;
+    public String getInventoryTitle(final String displayName) {
+        return StringUtil.replace(inventoryTitle, new Placeholder("%displayname%", displayName));
     }
 
     public String getCommandUsage() {
@@ -176,8 +178,9 @@ public class CratesConfig {
         return helpTitle;
     }
 
-    public String getHelpCommand() {
-        return helpCommand;
+    public String getHelpCommand(final String label, final String cmd, final String args, final String description) {
+        return StringUtil.replace(helpCommand, new Placeholder("%label%", label), new Placeholder("%cmd%", cmd),
+                new Placeholder("%args%", args), new Placeholder("%description%", description));
     }
 
     public String getHelpSubtitle() {
@@ -192,8 +195,8 @@ public class CratesConfig {
         return addLocationDescription;
     }
 
-    public String getCheckSuccess() {
-        return checkSuccess;
+    public String getCheckSuccess(final int amount) {
+        return StringUtil.replace(checkSuccess, new Placeholder("%amount%", amount));
     }
 
     public String getCheckDescription() {

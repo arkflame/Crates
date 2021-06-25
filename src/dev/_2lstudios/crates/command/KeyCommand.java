@@ -60,9 +60,4 @@ class KeyCommand implements CratesCommand {
   public String getArgs() {
     return "<player> <crate> <amount>";
   }
-
-  @Override
-  public String getName() {
-    return "key";
-  }
 }

@@ -47,11 +47,6 @@ class DisplaynameCommand implements CratesCommand {
 
   @Override
   public String getArgs() {
-    return "<crate> <displayname>";
-  }
-
-  @Override
-  public String getName() {
-    return "displayname";
+    return "<crate> <name>";
   }
 }

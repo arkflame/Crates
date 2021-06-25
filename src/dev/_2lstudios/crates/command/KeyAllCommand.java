@@ -59,9 +59,4 @@ class KeyAllCommand implements CratesCommand {
   public String getArgs() {
     return "<crate> <amount>";
   }
-
-  @Override
-  public String getName() {
-    return "keyall";
-  }
 }

@@ -50,9 +50,4 @@ class RemoveLocationCommand implements CratesCommand {
   public String getArgs() {
     return "";
   }
-
-  @Override
-  public String getName() {
-    return "removelocation";
-  }
 }

@@ -1,7 +1,5 @@
 package dev._2lstudios.crates;
 
-import java.util.List;
-
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
