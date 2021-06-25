@@ -25,6 +25,10 @@ public class CratesConfig {
     private final String invalidNumber;
     private final String receivedKeys;
 
+    private final String helpTitle;
+    private final String helpCommand;
+    private final String helpSubtitle;
+
     private final String addLocationSuccess;
     private final String addLocationDescription;
 
@@ -78,18 +82,22 @@ public class CratesConfig {
         invalidNumber = configWrapper.getOrDefault("invalid_number", "");
         receivedKeys = configWrapper.getOrDefault("received_keys", "");
 
+        helpTitle = configWrapper.getOrDefault("help.title", "");
+        helpCommand = configWrapper.getOrDefault("help.command", "");
+        helpSubtitle = configWrapper.getOrDefault("help.subtitle", "");
+
         addLocationSuccess = configWrapper.getOrDefault("add_location.success", "");
         addLocationDescription = configWrapper.getOrDefault("add_location.description", "");
 
         checkSuccess = configWrapper.getOrDefault("check.success", "");
         checkDescription = configWrapper.getOrDefault("check.description", "");
-    
+
         claimSuccess = configWrapper.getOrDefault("claim.success", "");
         claimDescription = configWrapper.getOrDefault("claim.description", "");
-        
+
         contentsSuccess = configWrapper.getOrDefault("contents.success", "");
         contentsDescription = configWrapper.getOrDefault("contents.description", "");
-    
+
         createSuccess = configWrapper.getOrDefault("create.success", "");
         createDescription = configWrapper.getOrDefault("create.description", "");
 
@@ -162,6 +170,18 @@ public class CratesConfig {
 
     public String getReceivedKeys() {
         return receivedKeys;
+    }
+
+    public String getHelpTitle() {
+        return helpTitle;
+    }
+
+    public String getHelpCommand() {
+        return helpCommand;
+    }
+
+    public String getHelpSubtitle() {
+        return helpSubtitle;
     }
 
     public String getAddLocationSuccess() {
