@@ -34,27 +34,27 @@ help:
 
 add_location:
   success: "&aYou added a location for the crate &b%crate_name%&a!"
-  description: "Adds the given Crate location!"
+  description: "Adds the given Crate location"
 
 check:
   success: "&aYou have &b%amount%&a keys to claim!"
-  description: "Checks your pending keys!"
+  description: "Checks your pending keys"
 
 claim:
   success: "&aYou claimed a total of &b%amount%&a keys!"
-  description: "Claim your pending keys!"
+  description: "Claim your pending keys"
 
 contents:
   sucess: "&aYou are editing the contents of &b%crate_name%&a!"
-  description: "Edits contents of crates!"
+  description: "Edits contents of crates"
 
 create:
   success: "&aCrate &b%crate_name%&a crated successfully!"
-  description: "Creates a new Crate!"
+  description: "Creates a new Crate"
 
 displayname:
   success: "&aYou changed the displayname of &b%crate_name%&a to %new_name%&a!"
-  description: "Changes displayname of Crates!"
+  description: "Changes displayname of Crates"
 
 keyall:
   success: "&aYou gave &b%amount% %crate_name%&a keys to all players!"
