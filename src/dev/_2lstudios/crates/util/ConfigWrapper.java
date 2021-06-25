@@ -2,7 +2,6 @@ package dev._2lstudios.crates.util;
 
 import java.util.List;
 
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.Configuration;
 
 public class ConfigWrapper {
@@ -13,11 +12,15 @@ public class ConfigWrapper {
     }
 
     public List<String> getOrDefault(final String key, final List<String> def) {
+        final List<String> value;
+
         if (config.contains(key)) {
-            return config.getStringList(key);
+            value = config.getStringList(key);
         } else {
-            return def;
+            value = def;
         }
+
+        return StringUtil.translateColorCodes(value);
     }
 
     public String getOrDefault(final String key, final String def) {
@@ -29,7 +32,7 @@ public class ConfigWrapper {
             value = def;
         }
 
-        return ChatColor.translateAlternateColorCodes('&', value);
+        return StringUtil.translateColorCodes(value);
     }
 
     public int getOrDefault(final String key, final int def) {
