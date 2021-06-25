@@ -1,21 +1,20 @@
 package dev._2lstudios.crates.command;
 
-import dev._2lstudios.crates.config.CratesConfig;
-import dev._2lstudios.crates.crate.CrateManager;
-import dev._2lstudios.crates.player.CratesPlayerManager;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import dev._2lstudios.crates.config.CratesConfig;
+import dev._2lstudios.crates.crate.CrateManager;
+import dev._2lstudios.crates.player.CratesPlayerManager;
+
 public class CratesCommandExecutor implements CommandExecutor {
-  private final CratesConfig cratesConfig;
   private final Map<String, CratesCommand> cratesCommands;
+  private final CratesCommand helpCommand;
 
   private void addCommand(final CratesCommand cratesCommand) {
     this.cratesCommands.put(cratesCommand.getName(), cratesCommand);
@@ -23,8 +22,9 @@ public class CratesCommandExecutor implements CommandExecutor {
 
   public CratesCommandExecutor(final CrateManager crateManager, final CratesPlayerManager cratesPlayerManager,
       final CratesConfig cratesConfig, final Server server) {
-    this.cratesConfig = cratesConfig;
     this.cratesCommands = new HashMap<>();
+    this.helpCommand = new HelpCommand(cratesConfig, cratesCommands);
+
     addCommand(new AddLocationCommand(crateManager, cratesConfig));
     addCommand(new CheckCommand(cratesPlayerManager, cratesConfig));
     addCommand(new ClaimCommand(cratesPlayerManager, cratesConfig));
@@ -44,21 +44,13 @@ public class CratesCommandExecutor implements CommandExecutor {
 
       if (this.cratesCommands.containsKey(subCommand)) {
         this.cratesCommands.get(subCommand).execute(sender, label, args);
+      } else {
+        helpCommand.execute(sender, label, args);
       }
     } else {
-      final StringBuilder message = new StringBuilder(cratesConfig.getHelpTitle());
-
-      for (final Entry<String, CratesCommand> entry : this.cratesCommands.entrySet()) {
-        final String key = entry.getKey();
-        final CratesCommand cratesCommand = entry.getValue();
-
-        message
-            .append(cratesConfig.getHelpCommand(label, key, cratesCommand.getArgs(), cratesCommand.getDescription()));
-      }
-
-      message.append(cratesConfig.getHelpSubtitle());
-      sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message.toString()));
+      helpCommand.execute(sender, label, args);
     }
+
     return true;
   }
 }

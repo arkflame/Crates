@@ -31,6 +31,7 @@ help:
   title: "&aCrates &b0.0.1&a by &b2LS&r\n"
   command: "&e /%label% %cmd% %args%&7 > &b%description%!\n"
   subtitle: ""
+  description: "Show information about Crates"
 
 add_location:
   success: "&aYou added a location for the crate &b%crate_name%&a!"
