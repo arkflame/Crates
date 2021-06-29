@@ -86,7 +86,7 @@ public class CratesConfig {
     }
 
     public String getNoKeysPending() {
-        return getString("keys_pending");
+        return getString("no_keys_pending");
     }
 
     public String getNoSpace() {

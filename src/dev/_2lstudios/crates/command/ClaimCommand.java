@@ -20,11 +20,13 @@ class ClaimCommand implements CratesCommand {
     if (!(sender instanceof org.bukkit.entity.Player)) {
       sender.sendMessage(cratesConfig.getNoConsole());
     } else {
-      CratesPlayer cratesPlayer = this.cratesPlayerManager.getPlayer(((Entity)sender).getUniqueId());
+      final CratesPlayer cratesPlayer = this.cratesPlayerManager.getPlayer(((Entity)sender).getUniqueId());
+      
       if (cratesPlayer.getPendingKeys().isEmpty()) {
         sender.sendMessage(cratesConfig.getNoKeysPending());
       } else {
-        int result = cratesPlayer.claimKeys();
+        final int result = cratesPlayer.claimKeys();
+
         if (result > 0) {
           sender.sendMessage(cratesConfig.getClaimSuccess(result));
         } else {
