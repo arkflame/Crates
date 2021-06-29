@@ -18,7 +18,7 @@ class ListCommand implements CratesCommand {
     if (!sender.hasPermission("crates.admin")) {
       sender.sendMessage(cratesConfig.getNoPermission());
     } else {
-      String crates = this.crateManager.getCratesNames().toArray(new String[0]).toString();
+      String crates = this.crateManager.getCratesNames();
 
       sender.sendMessage(cratesConfig.getListSuccess(crates));
     } 

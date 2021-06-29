@@ -20,9 +20,13 @@ class RemoveCommand implements CratesCommand {
     } else if (args.length < 2) {
       sender.sendMessage(cratesConfig.getCommandUsage(label, getName(), getArgs()));
     } else {
-      String crateName = args[1];
-      this.crateManager.removeCrate(crateName);
-      sender.sendMessage(cratesConfig.getRemoveSuccess(crateName));
+      final String crateName = args[1];
+
+      if (this.crateManager.removeCrate(crateName)) {
+        sender.sendMessage(cratesConfig.getRemoveSuccess(crateName));
+      } else {
+        sender.sendMessage(cratesConfig.getNoCrate());
+      }
     } 
   }
 

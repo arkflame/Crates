@@ -29,8 +29,21 @@ public class CrateManager {
     this.plugin = plugin;
   }
 
-  public Collection<String> getCratesNames() {
-    return this.crates.keySet();
+  public String getCratesNames() {
+    final StringBuilder stringBuilder = new StringBuilder();
+    int i = 0;
+
+    for (final String crateName : crates.keySet()) {
+      if (i > 0) {
+        stringBuilder.append(" ,");
+      }
+      
+      stringBuilder.append(crateName);
+
+      i++;
+    }
+
+    return stringBuilder.toString();
   }
 
   public Collection<Crate> getCrates() {
@@ -118,12 +131,17 @@ public class CrateManager {
     this.configurationUtil.saveConfiguration(config, "%datafolder%/crates/" + name + ".yml", async);
   }
 
-  public void removeCrate(final String crateName) {
+  public boolean removeCrate(final String crateName) {
     if (this.crates.containsKey(crateName)) {
       final Crate crate = this.crates.get(crateName);
+
       crate.despawnHolograms();
       this.crates.remove(crateName);
       this.configurationUtil.deleteConfiguration("%datafolder%/crates/" + crateName + ".yml", true);
+
+      return true;
+    } else {
+      return false;
     }
   }
 

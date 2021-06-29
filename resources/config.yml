@@ -46,11 +46,11 @@ claim:
   description: "Claim your pending keys"
 
 contents:
-  sucess: "&aYou are editing the contents of &b%crate_name%&a!"
+  success: "&aYou are editing the contents of &b%crate_name%&a!"
   description: "Edits contents of crates"
 
 create:
-  success: "&aCrate &b%crate_name%&a crated successfully!"
+  success: "&aCrate &b%crate_name%&a created successfully!"
   description: "Creates a new Crate"
 
 displayname:

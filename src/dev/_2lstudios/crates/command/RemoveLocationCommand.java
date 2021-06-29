@@ -34,8 +34,12 @@ class RemoveLocationCommand implements CratesCommand {
         String crateName = args[1];
         Crate crate = this.crateManager.getCrate(crateName);
         
-        crate.removeLocation(block.getLocation().add(new Vector(0.5D, -0.5D, 0.5D)));
-        sender.sendMessage(cratesConfig.getRemoveLocationSuccess(crateName));
+        if (crate != null) {
+          crate.removeLocation(block.getLocation().add(new Vector(0.5D, 0.0D, 0.5D)));
+          sender.sendMessage(cratesConfig.getRemoveLocationSuccess(crateName));
+        } else {
+          sender.sendMessage(cratesConfig.getNoCrate());
+        }
       } 
     } 
   }
@@ -52,6 +56,6 @@ class RemoveLocationCommand implements CratesCommand {
 
   @Override
   public String getArgs() {
-    return "";
+    return "<crate>";
   }
 }

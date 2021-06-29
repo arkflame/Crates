@@ -132,11 +132,11 @@ public class CratesConfig {
     }
 
     public String getAddLocationSuccess(final String crateName) {
-        return StringUtil.replace(getString("addlocation.success"), new Placeholder("%crate_name%", crateName));
+        return StringUtil.replace(getString("add_location.success"), new Placeholder("%crate_name%", crateName));
     }
 
     public String getAddLocationDescription() {
-        return getString("addlocation.description");
+        return getString("add_location.description");
     }
 
     public String getCheckSuccess(final int amount) {
@@ -215,10 +215,10 @@ public class CratesConfig {
     }
 
     public String getRemoveLocationSuccess(final String crateName) {
-        return StringUtil.replace(getString("removelocation.success"), new Placeholder("%crate_name%", crateName));
+        return StringUtil.replace(getString("remove_location.success"), new Placeholder("%crate_name%", crateName));
     }
 
     public String getRemoveLocationDescription() {
-        return getString("removelocation.description");
+        return getString("remove_location.description");
     }
 }
