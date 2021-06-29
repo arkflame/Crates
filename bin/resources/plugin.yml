@@ -1,9 +1,0 @@
-name: Crates
-version: 0.0.1
-authors: [Sammwy, LinsaFTW]
-main: dev._2lstudios.crates.Crates
-depend: [HolographicDisplays]
-load: POSTWORLD
-commands:
-  crates:
-    aliases: ["crate"]
