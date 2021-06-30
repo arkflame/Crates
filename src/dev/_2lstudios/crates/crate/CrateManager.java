@@ -3,7 +3,6 @@ package dev._2lstudios.crates.crate;
 import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 import org.bukkit.Location;
@@ -95,23 +94,24 @@ public class CrateManager {
       displayName = name;
     }
 
-    final Inventory inventory = this.plugin.getServer().createInventory(null, 27,
+    final Inventory rewardsInventory = this.plugin.getServer().createInventory(null, 27,
         cratesConfig.getInventoryTitle(displayName));
-    final Collection<Location> locations = new HashSet<>();
 
     if (contentsSection != null) {
       for (final String key : contentsSection.getKeys(false)) {
-        inventory.addItem(new ItemStack[] { yamlConfiguration.getItemStack("contents." + key) });
+        rewardsInventory.addItem(new ItemStack[] { yamlConfiguration.getItemStack("contents." + key) });
       }
     }
+
+    final Crate crate = new Crate(plugin, cratesConfig, name, displayName, rewardsInventory);
+
+    this.crates.put(name, crate);
 
     if (locationsSection != null) {
       for (final String key : locationsSection.getKeys(false)) {
-        locations.add((Location) yamlConfiguration.get("locations." + key));
+        crate.addLocation((Location) yamlConfiguration.get("locations." + key));
       }
     }
-
-    this.crates.put(name, new Crate(plugin, cratesConfig, locations, name, displayName, inventory));
   }
 
   public void saveCrate(final String name, final boolean async) {

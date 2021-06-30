@@ -35,7 +35,7 @@ class RemoveLocationCommand implements CratesCommand {
         Crate crate = this.crateManager.getCrate(crateName);
         
         if (crate != null) {
-          crate.removeLocation(block.getLocation().add(new Vector(0.5D, 0.0D, 0.5D)));
+          crate.removeLocation(block.getLocation().add(new Vector(0.5f, 0.0f, 0.5f)));
           sender.sendMessage(cratesConfig.getRemoveLocationSuccess(crateName));
         } else {
           sender.sendMessage(cratesConfig.getNoCrate());

@@ -1,12 +1,12 @@
 package dev._2lstudios.crates.crate;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-
-import com.gmail.filoghost.holographicdisplays.api.Hologram;
-import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -24,19 +24,17 @@ import dev._2lstudios.crates.config.CratesConfig;
 public class Crate {
   private final Plugin plugin;
   private final CratesConfig cratesConfig;
-  private final Collection<Hologram> holograms = new HashSet<>();
-  private final Collection<Location> locations;
+  private final Map<Location, CrateBlock> crateBlocks = new HashMap<>();
   private final String name;
   private final Inventory rewardsInventory;
 
   private String displayName;
 
-  Crate(final Plugin plugin, final CratesConfig cratesConfig, final Collection<Location> locations, final String name,
+  Crate(final Plugin plugin, final CratesConfig cratesConfig, final String name,
       final String displayName,
       final Inventory rewardsInventory) {
     this.plugin = plugin;
     this.cratesConfig = cratesConfig;
-    this.locations = locations;
     this.name = name;
     this.displayName = displayName;
     this.rewardsInventory = rewardsInventory;
@@ -55,7 +53,7 @@ public class Crate {
   }
 
   public Collection<Location> getLocations() {
-    return this.locations;
+    return this.crateBlocks.keySet();
   }
 
   public List<String> getHologramLines() {
@@ -92,10 +90,12 @@ public class Crate {
 
   public boolean checkLocation(final Location location) {
     final Block block = location.getBlock();
-    for (final Location location1 : this.locations) {
+
+    for (final Location location1 : this.crateBlocks.keySet()) {
       if (block.equals(location1.getBlock()))
         return true;
     }
+
     return false;
   }
 
@@ -157,72 +157,41 @@ public class Crate {
     return trimmedItemStacks;
   }
 
-  private void appendLines(final Hologram hologram) {
-    for (final String line : getHologramLines()) {
-      hologram.appendTextLine(line);
+  public void despawnHolograms() {
+    for (final CrateBlock crateBlock : crateBlocks.values()) {
+      crateBlock.despawnHologram();
     }
-  }
-
-  private void spawnHologram(final Location location) {
-    final Location clonedLocation = location.clone().add(0, 1.5f, 0);
-    final Hologram hologram = HologramsAPI.createHologram(plugin, clonedLocation);
-
-    appendLines(hologram);
-
-    this.holograms.add(hologram);
   }
 
   public void spawnHolograms() {
     despawnHolograms();
 
-    for (final Location location : locations) {
-      spawnHologram(location);
-    }
-  }
-
-  public void despawnHolograms() {
-    for (final Hologram hologram : holograms) {
-      hologram.delete();
-    }
-
-    holograms.clear();
-  }
-
-  public void despawnHologram(final Location location) {
-    final Iterator<Hologram> iterator = holograms.iterator();
-    final Block block = location.getBlock();
-
-    while (iterator.hasNext()) {
-      final Hologram hologram = iterator.next();
-      final Location location1 = hologram.getLocation();
-
-      if (location1 == null || block == location1.getBlock()) {
-        hologram.delete();
-        iterator.remove();
-      }
+    for (final CrateBlock crateBlock : crateBlocks.values()) {
+      crateBlock.spawnHologram();
     }
   }
 
   public void addLocation(final Location location) {
     if (location != null) {
-      this.locations.add(location);
+      final CrateBlock crateBlock = new CrateBlock(plugin, this, location);
 
-      spawnHologram(location);
+      this.crateBlocks.put(location, crateBlock);
+
+      crateBlock.spawnHologram();
     }
   }
 
   public void removeLocation(final Location location) {
-    final Iterator<Location> locationIterator = this.locations.iterator();
-    final Block block = location.getBlock();
+    final Iterator<Entry<Location, CrateBlock>> locationIterator = this.crateBlocks.entrySet().iterator();
 
     while (locationIterator.hasNext()) {
-      final Location location1 = locationIterator.next();
+      final Entry<Location, CrateBlock> entry = locationIterator.next();
+      final Location location1 = entry.getKey();
 
-      if (location1 == null || block == location1.getBlock()) {
+      if (location.equals(location1)) {
+        entry.getValue().despawnHologram();
         locationIterator.remove();
       }
     }
-
-    despawnHologram(location);
   }
 }
