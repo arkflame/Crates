@@ -35,6 +35,7 @@ help:
 
 add_location:
   success: "&aYou added a location for the crate &b%crate_name%&a!"
+  already_set: "&cAnother crate is already in that location."
   description: "Adds the given Crate location"
 
 check:
@@ -75,4 +76,5 @@ remove:
 
 remove_location:
   success: "&aYou removed a location for the crate &b%crate_name%&a!"
+  no_crate_at_location: "&cThere is no crate &b%crate_name% &cat that location."
   description: "Removes the given Crate location"
