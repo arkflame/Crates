@@ -221,4 +221,12 @@ public class CratesConfig {
     public String getRemoveLocationDescription() {
         return getString("remove_location.description");
     }
+
+   public String getAddLocationAlreadySet() {
+        return getString("add_location.already_set");
+   }
+
+    public String getRemoveLocationNoCrateAt(String crateName) {
+        return getString("remove_location.no_crate_at_location").replace("%crate_name%", crateName);
+    }
 }

@@ -34,7 +34,7 @@ public class CrateManager {
 
     for (final String crateName : crates.keySet()) {
       if (i > 0) {
-        stringBuilder.append(" ,");
+        stringBuilder.append(", ");
       }
       
       stringBuilder.append(crateName);

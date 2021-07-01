@@ -1,5 +1,6 @@
 package dev._2lstudios.crates.command;
 
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -35,8 +36,14 @@ class RemoveLocationCommand implements CratesCommand {
         Crate crate = this.crateManager.getCrate(crateName);
         
         if (crate != null) {
-          crate.removeLocation(block.getLocation().add(new Vector(0.5f, 0.0f, 0.5f)));
-          sender.sendMessage(cratesConfig.getRemoveLocationSuccess(crateName));
+          Location blockLocation = block.getLocation().add(new Vector(0.5f, 0.0f, 0.5f));
+
+          if (crate.checkLocation(blockLocation)){
+            crate.removeLocation(blockLocation);
+            sender.sendMessage(cratesConfig.getRemoveLocationSuccess(crateName));
+          } else{
+            sender.sendMessage(cratesConfig.getRemoveLocationNoCrateAt(crate.getName()));
+          }
         } else {
           sender.sendMessage(cratesConfig.getNoCrate());
         }
