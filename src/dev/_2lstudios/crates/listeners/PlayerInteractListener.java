@@ -18,12 +18,23 @@ import dev._2lstudios.crates.crate.CrateManager;
 class PlayerInteractListener implements Listener {
   private final CrateManager crateManager;
   private final CratesConfig cratesConfig;
-  
+
   PlayerInteractListener(CrateManager crateManager, CratesConfig cratesConfig) {
     this.crateManager = crateManager;
     this.cratesConfig = cratesConfig;
   }
-  
+
+  private void tryGiveKey(final Player player, final Crate crate, final ItemStack itemStack) {
+    PlayerInventory playerInventory = player.getInventory();
+    if (playerInventory.firstEmpty() == -1) {
+      player.sendMessage(cratesConfig.getNoSpace());
+    } else if (crate.openKey(player, itemStack)) {
+      player.sendMessage(cratesConfig.getValidKey(crate.getDisplayName()));
+    } else {
+      player.sendMessage(cratesConfig.getError());
+    }
+  }
+
   @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
   public void onPlayerInteract(PlayerInteractEvent event) {
     Block block = event.getClickedBlock();
@@ -36,32 +47,29 @@ class PlayerInteractListener implements Listener {
         if (crate != null) {
           player.openInventory(crate.getInventory());
           event.setCancelled(true);
-        } 
+        }
       } else if (action == Action.RIGHT_CLICK_BLOCK) {
         ItemStack itemStack = event.getItem();
         Crate keyCrate = this.crateManager.getCrate(itemStack);
         if (keyCrate != null) {
           Crate crate = this.crateManager.getCrate(location);
           if (crate == keyCrate) {
-            PlayerInventory playerInventory = player.getInventory();
-            if (playerInventory.firstEmpty() == -1) {
-              player.sendMessage(cratesConfig.getNoSpace());
-            } else if (crate.openKey(player, itemStack)) {
-              player.sendMessage(cratesConfig.getValidKey(crate.getDisplayName()));
-            } else {
-              player.sendMessage(cratesConfig.getError());
-            } 
+            tryGiveKey(player, crate, itemStack);
           } else if (crate != null) {
             player.sendMessage(cratesConfig.getInvalidKey());
           } else {
-            player.sendMessage(cratesConfig.getNoInteract());
-          } 
+            if (player.hasPermission("crates.crateless")) {
+              tryGiveKey(player, keyCrate, itemStack);
+            } else {
+              player.sendMessage(cratesConfig.getNoInteract());
+            }
+          }
           event.setCancelled(true);
         } else if (this.crateManager.getCrate(location) != null) {
           player.sendMessage(cratesConfig.getNoKeys());
           event.setCancelled(true);
-        } 
-      } 
-    } 
+        }
+      }
+    }
   }
 }
