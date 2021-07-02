@@ -110,7 +110,7 @@ public class CrateManager {
 
     this.crates.put(name, crate);
 
-    crate.setSlots(yamlConfiguration.getInt("slots", 3));
+    crate.setRows(yamlConfiguration.getInt("rows", 3));
 
     if (contentsSection != null) {
       for (final String key : contentsSection.getKeys(false)) {

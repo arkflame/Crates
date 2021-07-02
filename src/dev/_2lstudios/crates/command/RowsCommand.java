@@ -7,11 +7,11 @@ import dev._2lstudios.crates.crate.Crate;
 import dev._2lstudios.crates.crate.CrateManager;
 import dev._2lstudios.crates.util.InventoryUtil;
 
-class SlotsCommand implements CratesCommand {
+class RowsCommand implements CratesCommand {
   private final CrateManager crateManager;
   private final CratesConfig cratesConfig;
 
-  SlotsCommand(CrateManager crateManager, CratesConfig cratesConfig) {
+  RowsCommand(CrateManager crateManager, CratesConfig cratesConfig) {
     this.crateManager = crateManager;
     this.cratesConfig = cratesConfig;
   }
@@ -26,10 +26,10 @@ class SlotsCommand implements CratesCommand {
       final Crate crate = crateManager.getCrate(args[1]);
 
       if (crate != null) {
-        final int slots = InventoryUtil.getValidSlot(args[2]);
+        final int rows = InventoryUtil.getValidRow(args[2]);
 
-        crate.setSlots(slots);
-        sender.sendMessage(cratesConfig.getSlotsSuccess(crateName, slots));
+        crate.setRows(rows);
+        sender.sendMessage(cratesConfig.getRowsSuccess(crateName, rows));
       } else {
         sender.sendMessage(cratesConfig.getNoCrate());
       }
@@ -38,16 +38,16 @@ class SlotsCommand implements CratesCommand {
 
   @Override
   public String getName() {
-    return "slots";
+    return "rows";
   }
 
   @Override
   public String getDescription() {
-    return cratesConfig.getSlotsDescription();
+    return cratesConfig.getRowsDescription();
   }
 
   @Override
   public String getArgs() {
-    return "<crate> <slots>";
+    return "<crate> <rows>";
   }
 }

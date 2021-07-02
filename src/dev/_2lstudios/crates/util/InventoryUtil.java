@@ -4,15 +4,15 @@ import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.Inventory;
 
 public class InventoryUtil {
-    public static int getValidSlot(final int slot) {
+    public static int getValidRow(final int slot) {
         return Math.max(Math.min(slot, 9), 1);
     }
 
-    public static int getValidSlot(final String string) {
+    public static int getValidRow(final String string) {
         try {
             final int slot = Integer.parseInt(string);
 
-            return getValidSlot(slot);
+            return getValidRow(slot);
         } catch (final NumberFormatException e) {
         }
 

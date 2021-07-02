@@ -79,6 +79,6 @@ remove_location:
   no_crate_at_location: "&cThere is no crate &b%crate_name% &cat that location."
   description: "Removes the given Crate location"
 
-slots:
-  success: "&aYou setted the slots of &b%crate%&a to &b%amount%&a!"
-  description: "Change the amount of slots"
+rows:
+  success: "&aYou setted the rows of &b%crate%&a to &b%amount%&a!"
+  description: "Change the amount of crate rows"

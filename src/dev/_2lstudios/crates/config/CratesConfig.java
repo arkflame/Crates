@@ -230,11 +230,11 @@ public class CratesConfig {
         return getString("remove_location.no_crate_at_location").replace("%crate_name%", crateName);
     }
 
-    public String getSlotsSuccess(String crateName, int slots) {
-        return getString("slots.success");
+    public String getRowsSuccess(String crateName, int slots) {
+        return getString("rows.success");
     }
 
-    public String getSlotsDescription() {
-        return getString("slots.description");
+    public String getRowsDescription() {
+        return getString("rows.description");
     }
 }
