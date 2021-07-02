@@ -36,6 +36,7 @@ public class CratesCommandExecutor implements CommandExecutor {
     addCommand(new KeyCommand(cratesPlayerManager, crateManager, cratesConfig, server));
     addCommand(new ListCommand(crateManager, cratesConfig));
     addCommand(new RemoveLocationCommand(crateManager, cratesConfig));
+    addCommand(new SlotsCommand(crateManager, cratesConfig));
   }
 
   public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
