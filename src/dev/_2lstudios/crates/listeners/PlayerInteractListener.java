@@ -19,13 +19,14 @@ class PlayerInteractListener implements Listener {
   private final CrateManager crateManager;
   private final CratesConfig cratesConfig;
 
-  PlayerInteractListener(CrateManager crateManager, CratesConfig cratesConfig) {
+  PlayerInteractListener(final CrateManager crateManager, final CratesConfig cratesConfig) {
     this.crateManager = crateManager;
     this.cratesConfig = cratesConfig;
   }
 
   private void tryGiveKey(final Player player, final Crate crate, final ItemStack itemStack) {
-    PlayerInventory playerInventory = player.getInventory();
+    final PlayerInventory playerInventory = player.getInventory();
+
     if (playerInventory.firstEmpty() == -1) {
       player.sendMessage(cratesConfig.getNoSpace());
     } else if (crate.openKey(player, itemStack)) {
@@ -36,23 +37,28 @@ class PlayerInteractListener implements Listener {
   }
 
   @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-  public void onPlayerInteract(PlayerInteractEvent event) {
-    Block block = event.getClickedBlock();
+  public void onPlayerInteract(final PlayerInteractEvent event) {
+    final Block block = event.getClickedBlock();
+
     if (block != null) {
-      Action action = event.getAction();
-      Location location = block.getLocation();
-      Player player = event.getPlayer();
+      final Action action = event.getAction();
+      final Location location = block.getLocation();
+      final Player player = event.getPlayer();
+
       if (action == Action.LEFT_CLICK_BLOCK) {
-        Crate crate = this.crateManager.getCrate(location);
+        final Crate crate = this.crateManager.getCrate(location);
+
         if (crate != null) {
           player.openInventory(crate.getInventory());
           event.setCancelled(true);
         }
       } else if (action == Action.RIGHT_CLICK_BLOCK) {
-        ItemStack itemStack = event.getItem();
-        Crate keyCrate = this.crateManager.getCrate(itemStack);
+        final ItemStack itemStack = event.getItem();
+        final Crate keyCrate = this.crateManager.getCrate(itemStack);
+
         if (keyCrate != null) {
-          Crate crate = this.crateManager.getCrate(location);
+          final Crate crate = this.crateManager.getCrate(location);
+
           if (crate == keyCrate) {
             tryGiveKey(player, crate, itemStack);
           } else if (crate != null) {
