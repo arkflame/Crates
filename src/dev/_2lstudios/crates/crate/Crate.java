@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -20,24 +21,21 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
 import dev._2lstudios.crates.config.CratesConfig;
+import dev._2lstudios.crates.util.InventoryUtil;
 
 public class Crate {
   private final Plugin plugin;
   private final CratesConfig cratesConfig;
   private final Map<Location, CrateBlock> crateBlocks = new HashMap<>();
   private final String name;
-  private final Inventory rewardsInventory;
-
+  private Inventory inventory;
   private String displayName;
 
-  Crate(final Plugin plugin, final CratesConfig cratesConfig, final String name,
-      final String displayName,
-      final Inventory rewardsInventory) {
+  Crate(final Plugin plugin, final CratesConfig cratesConfig, final String name, final String displayName) {
     this.plugin = plugin;
     this.cratesConfig = cratesConfig;
     this.name = name;
     this.displayName = displayName;
-    this.rewardsInventory = rewardsInventory;
   }
 
   public String getName() {
@@ -69,7 +67,7 @@ public class Crate {
   }
 
   public Inventory getInventory() {
-    return this.rewardsInventory;
+    return this.inventory;
   }
 
   public ItemStack getKey() {
@@ -103,8 +101,7 @@ public class Crate {
     if (player != null && isKey(itemStack)) {
       final PlayerInventory playerInventory = player.getInventory();
       if (playerInventory.firstEmpty() != -1) {
-        final ItemStack[] rewards = trimContents(this.rewardsInventory.getContents())
-            .<ItemStack>toArray(new ItemStack[0]);
+        final ItemStack[] rewards = trimContents(this.inventory.getContents()).<ItemStack>toArray(new ItemStack[0]);
         if (rewards.length > 0) {
           final int randomContent = (int) (Math.random() * rewards.length);
           final ItemStack reward = rewards[randomContent];
@@ -133,7 +130,7 @@ public class Crate {
   }
 
   public void openInventory(final Player player) {
-    player.openInventory(this.rewardsInventory);
+    player.openInventory(this.inventory);
   }
 
   boolean isKey(final ItemStack itemStack) {
@@ -193,5 +190,23 @@ public class Crate {
         locationIterator.remove();
       }
     }
+  }
+
+  public boolean isInventory(Inventory inventory) {
+    return this.inventory == inventory;
+  }
+
+  public void setSlots(final int slots) {
+    final Inventory inventory = Bukkit.createInventory(null, slots);
+
+    if (this.inventory != null) {
+      InventoryUtil.copy(this.inventory, inventory);
+      InventoryUtil.close(this.inventory);
+      InventoryUtil.clear(this.inventory);
+    }
+  }
+
+  public void addItem(final ItemStack item) {
+    this.inventory.addItem(item);
   }
 }

@@ -20,12 +20,12 @@ class InventoryClickListener implements Listener {
   public void onInventoryClick(InventoryClickEvent event) {
     HumanEntity humanEntity = event.getWhoClicked();
     Inventory inventory = event.getView().getTopInventory();
-    if (inventory != null && !humanEntity.hasPermission("crates.admin"))
-      for (Crate crate : this.crateManager.getCrates()) {
-        if (inventory.equals(crate.getInventory())) {
-          event.setCancelled(true);
-          break;
-        } 
-      }  
+    if (inventory != null && !humanEntity.hasPermission("crates.admin")) {
+      final Crate crate = crateManager.getCrate(inventory);
+
+      if (crate != null) {
+        event.setCancelled(true);
+      }
+    }
   }
 }

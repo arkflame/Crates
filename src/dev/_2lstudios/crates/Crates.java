@@ -29,22 +29,27 @@ public class Crates extends JavaPlugin {
     crateManager = new CrateManager(configurationUtil, cratesConfig, plugin);
     cratesPlayerManager = new CratesPlayerManager(crateManager, configurationUtil, server);
 
-    getCommand("crates").setExecutor(new CratesCommandExecutor(crateManager, cratesPlayerManager, cratesConfig, server));
+    getCommand("crates")
+        .setExecutor(new CratesCommandExecutor(crateManager, cratesPlayerManager, cratesConfig, server));
 
     crateManager.loadCrates();
     crateManager.spawnHolograms();
     listenerInitializer = new ListenerInitializer(plugin, crateManager, cratesPlayerManager, cratesConfig);
     listenerInitializer.initialize();
   }
-  
+
   public void onDisable() {
-    for (final Player player : getServer().getOnlinePlayers())
-      cratesPlayerManager.savePlayer(player.getUniqueId(), false); 
+    for (final Player player : getServer().getOnlinePlayers()) {
+      cratesPlayerManager.savePlayer(player.getUniqueId(), false);
+    }
+
     if (crateManager != null) {
       crateManager.saveCrates(false);
       crateManager.despawnHolograms();
-    } 
-    if (listenerInitializer != null)
-      listenerInitializer.deinitialize(); 
+    }
+
+    if (listenerInitializer != null) {
+      listenerInitializer.deinitialize();
+    }
   }
 }

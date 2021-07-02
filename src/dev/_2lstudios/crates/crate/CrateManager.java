@@ -54,6 +54,17 @@ public class CrateManager {
       if (crate.checkLocation(location))
         return crate;
     }
+
+    return null;
+  }
+
+  public Crate getCrate(final Inventory inventory) {
+    for (final Crate crate : getCrates()) {
+      if (crate.isInventory(inventory)) {
+        return crate;
+      }
+    }
+
     return null;
   }
 
@@ -62,6 +73,7 @@ public class CrateManager {
       if (crate.isKey(itemStack))
         return crate;
     }
+
     return null;
   }
 
@@ -94,18 +106,17 @@ public class CrateManager {
       displayName = name;
     }
 
-    final Inventory rewardsInventory = this.plugin.getServer().createInventory(null, 27,
-        cratesConfig.getInventoryTitle(displayName));
+    final Crate crate = new Crate(plugin, cratesConfig, name, displayName);
+
+    this.crates.put(name, crate);
+
+    crate.setSlots(yamlConfiguration.getInt("slots", 3));
 
     if (contentsSection != null) {
       for (final String key : contentsSection.getKeys(false)) {
-        rewardsInventory.addItem(new ItemStack[] { yamlConfiguration.getItemStack("contents." + key) });
+        crate.addItem(yamlConfiguration.getItemStack("contents." + key));
       }
     }
-
-    final Crate crate = new Crate(plugin, cratesConfig, name, displayName, rewardsInventory);
-
-    this.crates.put(name, crate);
 
     if (locationsSection != null) {
       for (final String key : locationsSection.getKeys(false)) {
