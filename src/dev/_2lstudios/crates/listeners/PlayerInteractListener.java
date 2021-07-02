@@ -38,12 +38,12 @@ class PlayerInteractListener implements Listener {
 
   @EventHandler(priority = EventPriority.HIGH)
   public void onPlayerInteract(final PlayerInteractEvent event) {
+    final Action action = event.getAction();
+    final Player player = event.getPlayer();
     final Block block = event.getClickedBlock();
 
     if (block != null) {
-      final Action action = event.getAction();
       final Location location = block.getLocation();
-      final Player player = event.getPlayer();
 
       if (action == Action.LEFT_CLICK_BLOCK) {
         final Crate crate = this.crateManager.getCrate(location);
@@ -76,16 +76,16 @@ class PlayerInteractListener implements Listener {
           player.sendMessage(cratesConfig.getNoKeys());
           event.setCancelled(true);
         }
-      } else {
-        final ItemStack itemStack = event.getItem();
-        final Crate keyCrate = this.crateManager.getCrate(itemStack);
+      }
+    } else if (action == Action.RIGHT_CLICK_AIR) {
+      final ItemStack itemStack = event.getItem();
+      final Crate keyCrate = this.crateManager.getCrate(itemStack);
 
-        if (keyCrate != null) {
-          if (player.hasPermission("crates.crateless")) {
-            tryGiveKey(player, keyCrate, itemStack);
-          } else {
-            player.sendMessage(cratesConfig.getNoInteract());
-          }
+      if (keyCrate != null) {
+        if (player.hasPermission("crates.crateless")) {
+          tryGiveKey(player, keyCrate, itemStack);
+        } else {
+          player.sendMessage(cratesConfig.getNoInteract());
         }
       }
     }
