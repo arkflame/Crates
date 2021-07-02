@@ -204,6 +204,8 @@ public class Crate {
       InventoryUtil.close(this.inventory);
       InventoryUtil.clear(this.inventory);
     }
+
+    this.inventory = inventory;
   }
 
   public void addItem(final ItemStack item) {
