@@ -36,7 +36,7 @@ class PlayerInteractListener implements Listener {
     }
   }
 
-  @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+  @EventHandler(priority = EventPriority.HIGH)
   public void onPlayerInteract(final PlayerInteractEvent event) {
     final Block block = event.getClickedBlock();
 
