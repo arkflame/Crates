@@ -70,10 +70,22 @@ class PlayerInteractListener implements Listener {
               player.sendMessage(cratesConfig.getNoInteract());
             }
           }
+
           event.setCancelled(true);
         } else if (this.crateManager.getCrate(location) != null) {
           player.sendMessage(cratesConfig.getNoKeys());
           event.setCancelled(true);
+        }
+      } else {
+        final ItemStack itemStack = event.getItem();
+        final Crate keyCrate = this.crateManager.getCrate(itemStack);
+
+        if (keyCrate != null) {
+          if (player.hasPermission("crates.crateless")) {
+            tryGiveKey(player, keyCrate, itemStack);
+          } else {
+            player.sendMessage(cratesConfig.getNoInteract());
+          }
         }
       }
     }
