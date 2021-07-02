@@ -1,5 +1,5 @@
 name: Crates
-version: 0.0.3
+version: 0.0.4
 authors: [LinsaFTW]
 main: dev._2lstudios.crates.Crates
 depend: [HolographicDisplays]
