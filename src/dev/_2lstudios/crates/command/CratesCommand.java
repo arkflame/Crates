@@ -10,4 +10,10 @@ public interface CratesCommand {
   String getDescription();
 
   String getArgs();
+
+  int getArgCount();
+
+  boolean requireAdmin();
+
+  boolean requirePlayer();
 }

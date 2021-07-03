@@ -17,22 +17,16 @@ class RowsCommand implements CratesCommand {
   }
 
   public void execute(CommandSender sender, String label, String[] args) {
-    if (!sender.hasPermission("crates.admin")) {
-      sender.sendMessage(cratesConfig.getNoPermission());
-    } else if (args.length < 3) {
-      sender.sendMessage(cratesConfig.getCommandUsage(label, getName(), getArgs()));
+    String crateName = args[1];
+    final Crate crate = crateManager.getCrate(args[1]);
+
+    if (crate != null) {
+      final int rows = InventoryUtil.getValidRow(args[2]);
+
+      crate.setRows(rows);
+      sender.sendMessage(cratesConfig.getRowsSuccess(crateName, rows));
     } else {
-      String crateName = args[1];
-      final Crate crate = crateManager.getCrate(args[1]);
-
-      if (crate != null) {
-        final int rows = InventoryUtil.getValidRow(args[2]);
-
-        crate.setRows(rows);
-        sender.sendMessage(cratesConfig.getRowsSuccess(crateName, rows));
-      } else {
-        sender.sendMessage(cratesConfig.getNoCrate());
-      }
+      sender.sendMessage(cratesConfig.getNoCrate());
     }
   }
 
@@ -49,5 +43,20 @@ class RowsCommand implements CratesCommand {
   @Override
   public String getArgs() {
     return "<crate> <rows>";
+  }
+
+  @Override
+  public boolean requireAdmin() {
+    return true;
+  }
+
+  @Override
+  public boolean requirePlayer() {
+    return false;
+  }
+
+  @Override
+  public int getArgCount() {
+    return 3;
   }
 }

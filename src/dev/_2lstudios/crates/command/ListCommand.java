@@ -8,20 +8,16 @@ import dev._2lstudios.crates.crate.CrateManager;
 class ListCommand implements CratesCommand {
   private final CrateManager crateManager;
   private final CratesConfig cratesConfig;
-  
+
   ListCommand(CrateManager crateManager, CratesConfig cratesConfig) {
     this.crateManager = crateManager;
     this.cratesConfig = cratesConfig;
   }
-  
-  public void execute(CommandSender sender, String label, String[] args) {
-    if (!sender.hasPermission("crates.admin")) {
-      sender.sendMessage(cratesConfig.getNoPermission());
-    } else {
-      String crates = this.crateManager.getCratesNames();
 
-      sender.sendMessage(cratesConfig.getListSuccess(crates));
-    } 
+  public void execute(CommandSender sender, String label, String[] args) {
+    String crates = this.crateManager.getCratesNames();
+
+    sender.sendMessage(cratesConfig.getListSuccess(crates));
   }
 
   @Override
@@ -37,5 +33,20 @@ class ListCommand implements CratesCommand {
   @Override
   public String getArgs() {
     return "";
+  }
+
+  @Override
+  public boolean requireAdmin() {
+    return true;
+  }
+
+  @Override
+  public boolean requirePlayer() {
+    return false;
+  }
+
+  @Override
+  public int getArgCount() {
+    return 0;
   }
 }

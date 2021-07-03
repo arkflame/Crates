@@ -20,35 +20,27 @@ class AddLocationCommand implements CratesCommand {
   }
 
   public void execute(final CommandSender sender, final String label, final String[] args) {
-    if (!(sender instanceof Player)) {
-      sender.sendMessage(cratesConfig.getNoConsole());
-    } else if (!sender.hasPermission("crates.admin")) {
-      sender.sendMessage(cratesConfig.getNoPermission());
-    } else if (args.length < 2) {
-      sender.sendMessage(cratesConfig.getCommandUsage(label, getName(), getArgs()));
+    final Block block = ((Player) sender).getTargetBlock(null, 10);
+    if (block == null) {
+      sender.sendMessage(cratesConfig.getNoBlock());
     } else {
-      final Block block = ((Player) sender).getTargetBlock(null, 10);
-      if (block == null) {
-        sender.sendMessage(cratesConfig.getNoBlock());
+      final String crateName = args[1];
+      final Crate crate = this.crateManager.getCrate(crateName);
+      final Location blockLocation = block.getLocation().add(new Vector(0.5f, 0.0f, 0.5f));
+
+      if (crate == null) {
+        sender.sendMessage(cratesConfig.getNoCrate());
       } else {
-        final String crateName = args[1];
-        final Crate crate = this.crateManager.getCrate(crateName);
-        final Location blockLocation = block.getLocation().add(new Vector(0.5f, 0.0f, 0.5f));
 
-        if (crate == null) {
-          sender.sendMessage(cratesConfig.getNoCrate());
-        } else {
-
-          for (Crate aCrate : crateManager.getCrates()) {
-            if (aCrate.checkLocation(blockLocation)) {
-              sender.sendMessage(cratesConfig.getAddLocationAlreadySet());
-              return;
-            }
+        for (Crate aCrate : crateManager.getCrates()) {
+          if (aCrate.checkLocation(blockLocation)) {
+            sender.sendMessage(cratesConfig.getAddLocationAlreadySet());
+            return;
           }
-
-          crate.addLocation(blockLocation);
-          sender.sendMessage(cratesConfig.getAddLocationSuccess(crateName));
         }
+
+        crate.addLocation(blockLocation);
+        sender.sendMessage(cratesConfig.getAddLocationSuccess(crateName));
       }
     }
   }
@@ -66,5 +58,20 @@ class AddLocationCommand implements CratesCommand {
   @Override
   public String getArgs() {
     return "<crate>";
+  }
+
+  @Override
+  public boolean requireAdmin() {
+    return true;
+  }
+
+  @Override
+  public boolean requirePlayer() {
+    return true;
+  }
+
+  @Override
+  public int getArgCount() {
+    return 2;
   }
 }

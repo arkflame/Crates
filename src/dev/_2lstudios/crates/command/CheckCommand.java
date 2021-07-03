@@ -19,26 +19,22 @@ class CheckCommand implements CratesCommand {
     this.cratesPlayerManager = cratesPlayerManager;
     this.cratesConfig = cratesConfig;
   }
-  
-  public void execute(final CommandSender sender, final String label, final String[] args) {
-    if (!(sender instanceof org.bukkit.entity.Player)) {
-      sender.sendMessage(cratesConfig.getNoConsole());
-    } else {
-      final CratesPlayer cratesPlayer = this.cratesPlayerManager.getPlayer(((Entity)sender).getUniqueId());
-      final Map<Crate, Integer> pendingKeys = cratesPlayer.getPendingKeys();
-      if (pendingKeys.isEmpty()) {
-        sender.sendMessage(cratesConfig.getNoKeysPending());
-      } else {
-        int amount = 0;
 
-        for (final Iterator<Integer> iterator = pendingKeys.values().iterator(); iterator.hasNext(); ) {
-          final int amount1 = ((Integer)iterator.next()).intValue();
-          amount += amount1;
-        } 
-        
-        sender.sendMessage(cratesConfig.getCheckSuccess(amount));
-      } 
-    } 
+  public void execute(final CommandSender sender, final String label, final String[] args) {
+    final CratesPlayer cratesPlayer = this.cratesPlayerManager.getPlayer(((Entity) sender).getUniqueId());
+    final Map<Crate, Integer> pendingKeys = cratesPlayer.getPendingKeys();
+    if (pendingKeys.isEmpty()) {
+      sender.sendMessage(cratesConfig.getNoKeysPending());
+    } else {
+      int amount = 0;
+
+      for (final Iterator<Integer> iterator = pendingKeys.values().iterator(); iterator.hasNext();) {
+        final int amount1 = ((Integer) iterator.next()).intValue();
+        amount += amount1;
+      }
+
+      sender.sendMessage(cratesConfig.getCheckSuccess(amount));
+    }
   }
 
   @Override
@@ -54,5 +50,20 @@ class CheckCommand implements CratesCommand {
   @Override
   public String getArgs() {
     return "";
+  }
+
+  @Override
+  public boolean requireAdmin() {
+    return false;
+  }
+
+  @Override
+  public boolean requirePlayer() {
+    return true;
+  }
+
+  @Override
+  public int getArgCount() {
+    return 0;
   }
 }

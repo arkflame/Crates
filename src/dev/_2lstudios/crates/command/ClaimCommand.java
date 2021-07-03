@@ -15,25 +15,21 @@ class ClaimCommand implements CratesCommand {
     this.cratesPlayerManager = cratesPlayerManager;
     this.cratesConfig = cratesConfig;
   }
-  
-  public void execute(CommandSender sender, String label, String[] args) {
-    if (!(sender instanceof org.bukkit.entity.Player)) {
-      sender.sendMessage(cratesConfig.getNoConsole());
-    } else {
-      final CratesPlayer cratesPlayer = this.cratesPlayerManager.getPlayer(((Entity)sender).getUniqueId());
-      
-      if (cratesPlayer.getPendingKeys().isEmpty()) {
-        sender.sendMessage(cratesConfig.getNoKeysPending());
-      } else {
-        final int result = cratesPlayer.claimKeys();
 
-        if (result > 0) {
-          sender.sendMessage(cratesConfig.getClaimSuccess(result));
-        } else {
-          sender.sendMessage(cratesConfig.getNoSpace());
-        } 
-      } 
-    } 
+  public void execute(CommandSender sender, String label, String[] args) {
+    final CratesPlayer cratesPlayer = this.cratesPlayerManager.getPlayer(((Entity) sender).getUniqueId());
+
+    if (cratesPlayer.getPendingKeys().isEmpty()) {
+      sender.sendMessage(cratesConfig.getNoKeysPending());
+    } else {
+      final int result = cratesPlayer.claimKeys();
+
+      if (result > 0) {
+        sender.sendMessage(cratesConfig.getClaimSuccess(result));
+      } else {
+        sender.sendMessage(cratesConfig.getNoSpace());
+      }
+    }
   }
 
   @Override
@@ -49,5 +45,20 @@ class ClaimCommand implements CratesCommand {
   @Override
   public String getArgs() {
     return "";
+  }
+
+  @Override
+  public boolean requireAdmin() {
+    return false;
+  }
+
+  @Override
+  public boolean requirePlayer() {
+    return true;
+  }
+
+  @Override
+  public int getArgCount() {
+    return 0;
   }
 }

@@ -45,4 +45,19 @@ class HelpCommand implements CratesCommand {
   public String getArgs() {
     return "";
   }
+
+  @Override
+  public boolean requireAdmin() {
+    return false;
+  }
+
+  @Override
+  public boolean requirePlayer() {
+    return false;
+  }
+
+  @Override
+  public int getArgCount() {
+    return 0;
+  }
 }

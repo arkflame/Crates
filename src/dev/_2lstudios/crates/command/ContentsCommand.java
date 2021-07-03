@@ -10,29 +10,21 @@ import dev._2lstudios.crates.crate.CrateManager;
 class ContentsCommand implements CratesCommand {
   private final CrateManager crateManager;
   private final CratesConfig cratesConfig;
-  
+
   ContentsCommand(CrateManager crateManager, CratesConfig cratesConfig) {
     this.crateManager = crateManager;
     this.cratesConfig = cratesConfig;
   }
-  
+
   public void execute(CommandSender sender, String label, String[] args) {
-    if (!(sender instanceof org.bukkit.entity.Player)) {
-      sender.sendMessage(cratesConfig.getNoConsole());
-    } else if (!sender.hasPermission("crates.admin")) {
-      sender.sendMessage(cratesConfig.getNoPermission());
-    } else if (args.length < 2) {
-      sender.sendMessage(cratesConfig.getCommandUsage(label, getName(), getArgs()));
+    String crateName = args[1];
+    Crate crate = this.crateManager.getCrate(crateName);
+    if (crate != null) {
+      ((HumanEntity) sender).openInventory(crate.getInventory());
+      sender.sendMessage(cratesConfig.getContentsSuccess(crateName));
     } else {
-      String crateName = args[1];
-      Crate crate = this.crateManager.getCrate(crateName);
-      if (crate != null) {
-        ((HumanEntity)sender).openInventory(crate.getInventory());
-        sender.sendMessage(cratesConfig.getContentsSuccess(crateName));
-      } else {
-        sender.sendMessage(cratesConfig.getNoCrate());
-      } 
-    } 
+      sender.sendMessage(cratesConfig.getNoCrate());
+    }
   }
 
   @Override
@@ -48,5 +40,20 @@ class ContentsCommand implements CratesCommand {
   @Override
   public String getArgs() {
     return "<crate>";
+  }
+
+  @Override
+  public boolean requireAdmin() {
+    return true;
+  }
+
+  @Override
+  public boolean requirePlayer() {
+    return true;
+  }
+
+  @Override
+  public int getArgCount() {
+    return 2;
   }
 }

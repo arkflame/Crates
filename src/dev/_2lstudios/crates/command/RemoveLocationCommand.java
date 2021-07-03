@@ -13,42 +13,34 @@ import dev._2lstudios.crates.crate.CrateManager;
 class RemoveLocationCommand implements CratesCommand {
   private final CrateManager crateManager;
   private final CratesConfig cratesConfig;
-  
+
   RemoveLocationCommand(CrateManager crateManager, CratesConfig cratesConfig) {
     this.crateManager = crateManager;
     this.cratesConfig = cratesConfig;
   }
-  
+
   public void execute(CommandSender sender, String label, String[] args) {
-    if (!(sender instanceof Player)) {
-      sender.sendMessage(cratesConfig.getNoConsole());
-    } else if (!sender.hasPermission("crates.admin")) {
-      sender.sendMessage(cratesConfig.getNoPermission());
-    } else if (args.length < 2) {
-      sender.sendMessage(cratesConfig.getCommandUsage(label, getName(), getArgs()));
+    Block block = ((Player) sender).getTargetBlock(null, 10);
+
+    if (block == null) {
+      sender.sendMessage(cratesConfig.getNoBlock());
     } else {
-      Block block = ((Player) sender).getTargetBlock(null, 10);
+      String crateName = args[1];
+      Crate crate = this.crateManager.getCrate(crateName);
 
-      if (block == null) {
-        sender.sendMessage(cratesConfig.getNoBlock());
-      } else {
-        String crateName = args[1];
-        Crate crate = this.crateManager.getCrate(crateName);
-        
-        if (crate != null) {
-          Location blockLocation = block.getLocation().add(new Vector(0.5f, 0.0f, 0.5f));
+      if (crate != null) {
+        Location blockLocation = block.getLocation().add(new Vector(0.5f, 0.0f, 0.5f));
 
-          if (crate.checkLocation(blockLocation)){
-            crate.removeLocation(blockLocation);
-            sender.sendMessage(cratesConfig.getRemoveLocationSuccess(crateName));
-          } else{
-            sender.sendMessage(cratesConfig.getRemoveLocationNoCrateAt(crate.getName()));
-          }
+        if (crate.checkLocation(blockLocation)) {
+          crate.removeLocation(blockLocation);
+          sender.sendMessage(cratesConfig.getRemoveLocationSuccess(crateName));
         } else {
-          sender.sendMessage(cratesConfig.getNoCrate());
+          sender.sendMessage(cratesConfig.getRemoveLocationNoCrateAt(crate.getName()));
         }
-      } 
-    } 
+      } else {
+        sender.sendMessage(cratesConfig.getNoCrate());
+      }
+    }
   }
 
   @Override
@@ -64,5 +56,20 @@ class RemoveLocationCommand implements CratesCommand {
   @Override
   public String getArgs() {
     return "<crate>";
+  }
+
+  @Override
+  public boolean requireAdmin() {
+    return true;
+  }
+
+  @Override
+  public boolean requirePlayer() {
+    return true;
+  }
+
+  @Override
+  public int getArgCount() {
+    return 2;
   }
 }
