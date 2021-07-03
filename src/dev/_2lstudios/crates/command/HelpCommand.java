@@ -19,12 +19,16 @@ class HelpCommand implements CratesCommand {
 
   public void execute(final CommandSender sender, final String label, final String[] args) {
     final StringBuilder message = new StringBuilder(cratesConfig.getHelpTitle());
+    final boolean isAdmin = sender.hasPermission("crates.admin");
 
     for (final Entry<String, CratesCommand> entry : this.cratesCommands.entrySet()) {
       final String key = entry.getKey();
       final CratesCommand cratesCommand = entry.getValue();
 
-      message.append(cratesConfig.getHelpCommand(label, key, cratesCommand.getArgs(), cratesCommand.getDescription()));
+      if (!cratesCommand.requireAdmin() || isAdmin) {
+        message
+            .append(cratesConfig.getHelpCommand(label, key, cratesCommand.getArgs(), cratesCommand.getDescription()));
+      }
     }
 
     message.append(cratesConfig.getHelpSubtitle());
