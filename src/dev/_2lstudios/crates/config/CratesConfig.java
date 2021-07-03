@@ -61,8 +61,8 @@ public class CratesConfig {
     }
 
     public String getCommandUsage(final String label, final String cmd, final String args) {
-        return StringUtil.replace(getString("command_usage"), new Placeholder("%label%", label), new Placeholder("%cmd%", cmd),
-                new Placeholder("%args%", args));
+        return StringUtil.replace(getString("command_usage"), new Placeholder("%label%", label),
+                new Placeholder("%cmd%", cmd), new Placeholder("%args%", args));
     }
 
     public String getError() {
@@ -123,8 +123,9 @@ public class CratesConfig {
     }
 
     public String getHelpCommand(final String label, final String cmd, final String args, final String description) {
-        return StringUtil.replace(getString("help.command"), new Placeholder("%label%", label), new Placeholder("%cmd%", cmd),
-                new Placeholder("%args%", args), new Placeholder("%description%", description));
+        return StringUtil.replace(getString("help.command"), new Placeholder("%label%", label),
+                new Placeholder("%cmd%", cmd), new Placeholder("%args%", args),
+                new Placeholder("%description%", description));
     }
 
     public String getHelpSubtitle() {
@@ -222,16 +223,17 @@ public class CratesConfig {
         return getString("remove_location.description");
     }
 
-   public String getAddLocationAlreadySet() {
+    public String getAddLocationAlreadySet() {
         return getString("add_location.already_set");
-   }
+    }
 
     public String getRemoveLocationNoCrateAt(String crateName) {
         return getString("remove_location.no_crate_at_location").replace("%crate_name%", crateName);
     }
 
     public String getRowsSuccess(String crateName, int slots) {
-        return getString("rows.success");
+        return StringUtil.replace(getString("rows.success"), new Placeholder("%crate_name%", crateName),
+                new Placeholder("%slots%", slots));
     }
 
     public String getRowsDescription() {
