@@ -8,6 +8,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
 import dev._2lstudios.crates.config.CratesConfig;
 import dev._2lstudios.crates.crate.CrateManager;
@@ -23,9 +24,11 @@ public class CratesCommandExecutor implements CommandExecutor {
   }
 
   public CratesCommandExecutor(final CrateManager crateManager, final CratesPlayerManager cratesPlayerManager,
-      final CratesConfig cratesConfig, final Server server) {
+      final CratesConfig cratesConfig, final Plugin plugin) {
+    final Server server = plugin.getServer();
+
     this.cratesConfig = cratesConfig;
-    this.helpCommand = new HelpCommand(cratesConfig, cratesCommands);
+    this.helpCommand = new HelpCommand(plugin, cratesConfig, cratesCommands);
 
     addCommand(new AddLocationCommand(crateManager, cratesConfig));
     addCommand(new CheckCommand(cratesPlayerManager, cratesConfig));

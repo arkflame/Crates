@@ -30,7 +30,7 @@ public class Crates extends JavaPlugin {
     cratesPlayerManager = new CratesPlayerManager(crateManager, configurationUtil, server);
 
     getCommand("crates")
-        .setExecutor(new CratesCommandExecutor(crateManager, cratesPlayerManager, cratesConfig, server));
+        .setExecutor(new CratesCommandExecutor(crateManager, cratesPlayerManager, cratesConfig, this));
 
     crateManager.loadCrates();
     crateManager.spawnHolograms();

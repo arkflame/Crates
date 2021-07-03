@@ -28,7 +28,7 @@ valid_key: "&aYou opened a crate of type &b%crate_name%&a!"
 received_keys: "&b%giver_name%&a gave you &b%amount% %crate_name%&a keys!"
 
 help:
-  title: "&aCrates &b0.0.1&a by &b2LS&r\n"
+  title: "&aCrates &b%version%&a by &b2LS&r\n"
   command: "&e /%label% %cmd% %args%&7 > &b%description%!\n"
   subtitle: ""
   description: "Show information about Crates"

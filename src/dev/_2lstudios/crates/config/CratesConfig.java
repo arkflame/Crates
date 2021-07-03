@@ -118,8 +118,8 @@ public class CratesConfig {
                 new Placeholder("%amount%", amount), new Placeholder("%crate_name%", crateName));
     }
 
-    public String getHelpTitle() {
-        return getString("help.title");
+    public String getHelpTitle(final String version) {
+        return StringUtil.replace(getString("help.title"), new Placeholder("%version%", version));
     }
 
     public String getHelpCommand(final String label, final String cmd, final String args, final String description) {
