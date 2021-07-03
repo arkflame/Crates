@@ -233,7 +233,7 @@ public class CratesConfig {
 
     public String getRowsSuccess(String crateName, int slots) {
         return StringUtil.replace(getString("rows.success"), new Placeholder("%crate_name%", crateName),
-                new Placeholder("%slots%", slots));
+                new Placeholder("%rows%", slots));
     }
 
     public String getRowsDescription() {

@@ -80,5 +80,5 @@ remove_location:
   description: "Removes the given Crate location"
 
 rows:
-  success: "&aYou setted the rows of &b%crate%&a to &b%amount%&a!"
+  success: "&aYou setted the rows of &b%crate_name%&a to &b%rows%&a!"
   description: "Change the amount of crate rows"
