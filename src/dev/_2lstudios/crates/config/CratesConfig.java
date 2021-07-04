@@ -101,8 +101,9 @@ public class CratesConfig {
         return getString("no_interact");
     }
 
-    public String getInvalidKey() {
-        return getString("invalid_key");
+    public String getInvalidKey(String crateName, String keyName) {
+        return StringUtil.replace(getString("invalid_key"), new Placeholder("%crate_name%", crateName),
+                new Placeholder("%key_name%", keyName));
     }
 
     public String getInvalidNumber() {
@@ -228,7 +229,7 @@ public class CratesConfig {
     }
 
     public String getRemoveLocationNoCrateAt(String crateName) {
-        return getString("remove_location.no_crate_at_location").replace("%crate_name%", crateName);
+        return StringUtil.replace(getString("remove_location.no_crate_at_location"), new Placeholder("%crate_name%", crateName));
     }
 
     public String getRowsSuccess(String crateName, int slots) {

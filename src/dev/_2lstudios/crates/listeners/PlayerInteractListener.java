@@ -62,7 +62,7 @@ class PlayerInteractListener implements Listener {
           if (crate == keyCrate) {
             tryGiveKey(player, crate, itemStack);
           } else if (crate != null) {
-            player.sendMessage(cratesConfig.getInvalidKey());
+            player.sendMessage(cratesConfig.getInvalidKey(crate.getName(), keyCrate.getName()));
           } else {
             if (player.hasPermission("crates.crateless")) {
               tryGiveKey(player, keyCrate, itemStack);
