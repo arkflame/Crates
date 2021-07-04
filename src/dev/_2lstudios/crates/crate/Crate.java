@@ -193,7 +193,7 @@ public class Crate {
   }
 
   public boolean isInventory(Inventory inventory) {
-    return this.inventory == inventory;
+    return this.inventory.equals(inventory);
   }
 
   public void setRows(final int rows) {
