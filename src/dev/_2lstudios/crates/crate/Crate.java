@@ -197,7 +197,7 @@ public class Crate {
   }
 
   public void setRows(final int rows) {
-    final Inventory inventory = Bukkit.createInventory(null, rows * 9);
+    final Inventory inventory = Bukkit.createInventory(null, rows * 9, cratesConfig.getInventoryTitle(displayName));
 
     if (this.inventory != null) {
       InventoryUtil.copy(this.inventory, inventory);
