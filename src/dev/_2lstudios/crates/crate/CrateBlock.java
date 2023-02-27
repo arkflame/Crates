@@ -25,7 +25,8 @@ public class CrateBlock {
     }
 
     public void spawnHologram() {
-        final Location clonedLocation = location.clone().add(0, 1.5f, 0);
+        final float offset = 1f + 0.25f * crate.getHologramLines().size();
+        final Location clonedLocation = location.clone().add(0, offset, 0);
         final Hologram hologram = HologramsAPI.createHologram(plugin, clonedLocation);
 
         appendLines(hologram);
